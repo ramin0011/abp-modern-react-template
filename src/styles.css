@@ -1,0 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root { --background: 245 33% 98%; --foreground: 241 28% 15%; --card: 0 0% 100%; --card-foreground: 241 28% 15%; --primary: 247 97% 68%; --primary-foreground: 0 0% 100%; --muted: 244 25% 95%; --muted-foreground: 242 10% 47%; --border: 242 22% 89%; --destructive: 0 75% 56%; --destructive-foreground: 0 0% 100%; }
+  .dark { --background: 242 28% 10%; --foreground: 240 20% 95%; --card: 242 25% 13%; --card-foreground: 240 20% 95%; --primary: 247 90% 72%; --primary-foreground: 245 35% 12%; --muted: 242 20% 18%; --muted-foreground: 241 12% 67%; --border: 242 17% 22%; --destructive: 0 62% 50%; --destructive-foreground: 0 0% 100%; }
+  * { @apply border-border; }
+  body { @apply bg-background text-foreground antialiased; }
+}
+@keyframes wave { 0%,100% { transform: rotate(0deg) } 25% { transform: rotate(16deg) } 75% { transform: rotate(-8deg) } }

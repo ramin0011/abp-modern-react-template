@@ -1,0 +1,4 @@
+import { ShieldCheck } from 'lucide-react'
+import { Card, CardContent } from '@/components/ui/card'
+
+export function TeamPage() { return <div className="space-y-6"><div><p className="text-sm font-semibold text-primary">Identity</p><h1 className="mt-1 text-3xl font-bold tracking-tight">Team</h1><p className="mt-2 text-sm text-muted-foreground">This page demonstrates an ABP permission-protected route and menu item.</p></div><Card><CardContent className="flex min-h-72 flex-col items-center justify-center text-center"><div className="grid h-14 w-14 place-items-center rounded-xl bg-primary/10 text-primary"><ShieldCheck className="h-7 w-7" /></div><h2 className="mt-5 text-xl font-bold">Permission granted</h2><p className="mt-2 max-w-md text-sm leading-6 text-muted-foreground">The server-provided <code className="rounded bg-muted px-1.5 py-1">OrbitAdmin.Team</code> policy controls access to this view.</p></CardContent></Card></div> }

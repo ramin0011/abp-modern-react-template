@@ -1,0 +1,41 @@
+import { ArrowDownRight, ArrowUpRight, CheckCircle2, Clock3, CreditCard, MoreHorizontal, Package, Users, WalletCards } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Badge } from '@/components/ui/badge'
+
+const metrics = [
+  { label: 'Total revenue', value: '$84,240', change: '+12.5%', positive: true, icon: WalletCards, tone: 'bg-violet-100 text-violet-600 dark:bg-violet-500/15 dark:text-violet-300' },
+  { label: 'Active users', value: '2,840', change: '+8.2%', positive: true, icon: Users, tone: 'bg-blue-100 text-blue-600 dark:bg-blue-500/15 dark:text-blue-300' },
+  { label: 'New orders', value: '384', change: '-2.4%', positive: false, icon: Package, tone: 'bg-amber-100 text-amber-600 dark:bg-amber-500/15 dark:text-amber-300' },
+  { label: 'Conversion', value: '4.62%', change: '+1.1%', positive: true, icon: CreditCard, tone: 'bg-emerald-100 text-emerald-600 dark:bg-emerald-500/15 dark:text-emerald-300' },
+]
+
+const activity = [
+  { name: 'Olivia Martin', action: 'created a new order', time: '2 min ago', color: 'bg-rose-200', initials: 'OM' },
+  { name: 'Jackson Lee', action: 'invited 3 team members', time: '18 min ago', color: 'bg-blue-200', initials: 'JL' },
+  { name: 'Sophia Brown', action: 'updated the product catalog', time: '1 hr ago', color: 'bg-amber-200', initials: 'SB' },
+  { name: 'Noah Wilson', action: 'completed account setup', time: '3 hrs ago', color: 'bg-emerald-200', initials: 'NW' },
+]
+
+export function DashboardPage() {
+  const { t } = useTranslation()
+  return (
+    <div className="space-y-7">
+      <section className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+        <div><p className="mb-1 text-sm font-semibold text-primary">Tuesday, August 25</p><h1 className="text-2xl font-bold tracking-tight md:text-3xl">{t('Dashboard:Title')} <span className="inline-block origin-bottom-right animate-[wave_1.8s_ease-in-out_infinite]">👋</span></h1><p className="mt-2 text-sm text-muted-foreground">{t('Dashboard:Subtitle')}</p></div>
+        <div className="flex items-center gap-2 rounded-lg border border-border bg-card px-3 py-2 text-xs font-medium text-muted-foreground shadow-sm"><span className="h-2 w-2 rounded-full bg-emerald-500" />All systems operational</div>
+      </section>
+
+      <section className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+        {metrics.map((metric) => <Card key={metric.label} className="group overflow-hidden transition hover:-translate-y-0.5 hover:border-primary/30"><CardContent className="p-5"><div className="mb-5 flex items-center justify-between"><div className={`grid h-10 w-10 place-items-center rounded-lg ${metric.tone}`}><metric.icon className="h-[19px] w-[19px]" /></div><button className="rounded-md p-1.5 text-muted-foreground opacity-0 transition hover:bg-muted group-hover:opacity-100"><MoreHorizontal className="h-4 w-4" /></button></div><p className="text-sm font-medium text-muted-foreground">{metric.label}</p><div className="mt-1 flex items-end justify-between"><span className="text-2xl font-bold tracking-tight">{metric.value}</span><span className={`flex items-center text-xs font-bold ${metric.positive ? 'text-emerald-600' : 'text-rose-500'}`}>{metric.positive ? <ArrowUpRight className="h-3.5 w-3.5" /> : <ArrowDownRight className="h-3.5 w-3.5" />}{metric.change}</span></div></CardContent></Card>)}
+      </section>
+
+      <section className="grid gap-5 xl:grid-cols-[1.65fr_1fr]">
+        <Card><CardHeader className="flex-row items-center justify-between"><div><CardTitle>Revenue overview</CardTitle><CardDescription>Monthly performance across the year</CardDescription></div><select className="rounded-lg border border-border bg-background px-3 py-2 text-xs font-medium"><option>Last 12 months</option><option>Last 6 months</option></select></CardHeader><CardContent><div className="mb-4 flex items-center gap-5 text-xs"><span className="flex items-center gap-2"><span className="h-2.5 w-2.5 rounded-full bg-primary" />Revenue</span><span className="flex items-center gap-2 text-muted-foreground"><span className="h-2.5 w-2.5 rounded-full bg-violet-200" />Previous period</span></div><div className="relative h-64 overflow-hidden rounded-lg bg-gradient-to-b from-primary/[.06] to-transparent"><div className="absolute inset-0 grid grid-rows-4">{[1,2,3,4].map((i) => <div key={i} className="border-t border-dashed border-border/70" />)}</div><svg viewBox="0 0 800 240" preserveAspectRatio="none" className="absolute inset-x-0 bottom-0 h-[88%] w-full"><defs><linearGradient id="chart" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stopColor="hsl(var(--primary))" stopOpacity=".28"/><stop offset="100%" stopColor="hsl(var(--primary))" stopOpacity="0"/></linearGradient></defs><path d="M0 185 C55 190 70 135 125 148 S205 187 258 116 S340 95 385 128 S462 148 510 82 S592 115 645 62 S720 88 800 32 L800 240 L0 240Z" fill="url(#chart)"/><path d="M0 185 C55 190 70 135 125 148 S205 187 258 116 S340 95 385 128 S462 148 510 82 S592 115 645 62 S720 88 800 32" fill="none" stroke="hsl(var(--primary))" strokeWidth="3" strokeLinecap="round"/></svg></div><div className="mt-3 grid grid-cols-6 text-center text-[10px] text-muted-foreground sm:grid-cols-12">{'Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec'.split(' ').map((month) => <span key={month} className="even:hidden sm:inline">{month}</span>)}</div></CardContent></Card>
+        <Card><CardHeader><CardTitle>Recent activity</CardTitle><CardDescription>Latest changes in your workspace</CardDescription></CardHeader><CardContent className="space-y-5">{activity.map((item) => <div key={item.name} className="flex gap-3"><div className={`grid h-9 w-9 shrink-0 place-items-center rounded-lg ${item.color} text-[10px] font-bold text-slate-800`}>{item.initials}</div><div className="min-w-0 flex-1"><p className="truncate text-sm"><span className="font-semibold">{item.name}</span> <span className="text-muted-foreground">{item.action}</span></p><p className="mt-1 flex items-center gap-1 text-[11px] text-muted-foreground"><Clock3 className="h-3 w-3" />{item.time}</p></div></div>)}<button className="w-full rounded-lg bg-muted py-2.5 text-xs font-semibold transition hover:bg-primary/10 hover:text-primary">View all activity</button></CardContent></Card>
+      </section>
+
+      <section className="grid gap-5 lg:grid-cols-3"><Card className="lg:col-span-2"><CardHeader><CardTitle>Top products</CardTitle><CardDescription>Your best performing items this month</CardDescription></CardHeader><CardContent><div className="overflow-x-auto"><table className="w-full text-left text-sm"><thead className="border-b border-border text-xs text-muted-foreground"><tr><th className="pb-3 font-medium">Product</th><th className="pb-3 font-medium">Status</th><th className="pb-3 font-medium">Sales</th><th className="pb-3 text-right font-medium">Revenue</th></tr></thead><tbody className="divide-y divide-border/70">{[['Cloud workspace','Active','1,240','$24,800'],['Analytics suite','Active','876','$17,520'],['Team starter','Draft','412','$6,180']].map((row) => <tr key={row[0]}><td className="py-4 font-semibold">{row[0]}</td><td className="py-4"><Badge className={row[1] === 'Draft' ? 'bg-amber-100 text-amber-700' : ''}>{row[1]}</Badge></td><td className="py-4 text-muted-foreground">{row[2]}</td><td className="py-4 text-right font-semibold">{row[3]}</td></tr>)}</tbody></table></div></CardContent></Card><Card className="bg-[#6d5dfc] text-white"><CardContent className="flex h-full min-h-64 flex-col p-6"><div className="grid h-11 w-11 place-items-center rounded-xl bg-white/15"><CheckCircle2 className="h-5 w-5" /></div><p className="mt-6 text-xs font-bold uppercase tracking-[.16em] text-violet-200">Setup progress</p><h3 className="mt-2 text-xl font-bold">You’re almost there!</h3><p className="mt-2 text-sm leading-6 text-violet-100">Complete the final steps to get the most from your workspace.</p><div className="mt-auto pt-6"><div className="mb-2 flex justify-between text-xs font-semibold"><span>4 of 5 complete</span><span>80%</span></div><div className="h-2 rounded-full bg-white/20"><div className="h-2 w-4/5 rounded-full bg-white" /></div></div></CardContent></Card></section>
+    </div>
+  )
+}

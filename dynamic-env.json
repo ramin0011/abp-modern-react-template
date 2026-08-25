@@ -1,0 +1,20 @@
+{
+  "application": {
+    "baseUrl": "http://localhost:3000",
+    "name": "Orbit Admin"
+  },
+  "oAuthConfig": {
+    "issuer": "https://localhost:44301/",
+    "redirectUri": "http://localhost:3000/auth/callback",
+    "postLogoutRedirectUri": "http://localhost:3000",
+    "clientId": "Orbit_Admin_App",
+    "scope": "offline_access openid profile email phone OrbitAdmin"
+  },
+  "apis": {
+    "default": {
+      "url": "https://localhost:44300",
+      "rootNamespace": "Orbit.Admin"
+    }
+  },
+  "adminConsoleUrl": "https://localhost:44307"
+}

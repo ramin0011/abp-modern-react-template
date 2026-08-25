@@ -1,0 +1,10 @@
+{
+  "Menu:Home": "Overview",
+  "Menu:Products": "Products",
+  "Menu:Team": "Team",
+  "Menu:Settings": "Settings",
+  "Dashboard:Title": "Good morning, Alex",
+  "Dashboard:Subtitle": "Here’s what’s happening with your workspace today.",
+  "AbpAccount::Login": "Sign in",
+  "AbpAccount::Logout": "Sign out"
+}
