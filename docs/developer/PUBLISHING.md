@@ -7,7 +7,7 @@ The project files are ready for a public GitHub repository. The remaining steps 
 Create an empty GitHub repository without generating another README, license, or `.gitignore`. Then run commands shaped like:
 
 ```bash
-git remote add origin https://github.com/OWNER/REPOSITORY.git
+git remote add origin https://github.com/ramin0011/abp-modern-react-template.git
 git push -u origin master
 ```
 
@@ -38,7 +38,7 @@ After the first push:
 
 Once the final URL is known:
 
-- Replace `YOUR_REPOSITORY_URL` and `YOUR_REPOSITORY_DIRECTORY` in the root README.
+- Replace `https://github.com/ramin0011/abp-modern-react-template` and `YOUR_REPOSITORY_DIRECTORY` in the root README.
 - Add a CI badge using the actual owner, repository, and default branch.
 - Update the copyright holder in `LICENSE` if desired.
 - Add maintainer contact details to `SECURITY.md` if private reporting is unavailable.

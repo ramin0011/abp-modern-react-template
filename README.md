@@ -42,8 +42,8 @@ Requirements:
 - npm 10 or newer
 
 ```bash
-git clone YOUR_REPOSITORY_URL
-cd YOUR_REPOSITORY_DIRECTORY
+git clone https://github.com/ramin0011/abp-modern-react-template
+cd abp-react
 npm ci
 npm run dev
 ```
