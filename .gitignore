@@ -1,6 +1,16 @@
 node_modules/
 .env
+.env.*
+!.env.example
 build/
 dist/
+.vite/
+coverage/
+.eslintcache
 .DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
 *.log

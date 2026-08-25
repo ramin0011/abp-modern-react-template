@@ -17,9 +17,11 @@ export function SettingsPage() {
     () => sessionStorage.getItem("abp_tenant_id") ?? "",
   );
   const save = () => {
-    tenant
-      ? sessionStorage.setItem("abp_tenant_id", tenant)
-      : sessionStorage.removeItem("abp_tenant_id");
+    if (tenant) {
+      sessionStorage.setItem("abp_tenant_id", tenant);
+    } else {
+      sessionStorage.removeItem("abp_tenant_id");
+    }
     toast.success("Settings saved");
   };
   return (

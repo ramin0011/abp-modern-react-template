@@ -1,0 +1,48 @@
+name: Bug report
+description: Report a reproducible problem in this starter.
+title: "[Bug]: "
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: Remove credentials, tokens, certificates, and private endpoints before submitting.
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: What happened, and what did you expect?
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction
+      description: Provide the smallest reliable sequence of steps.
+    validations:
+      required: true
+  - type: input
+    id: frontend-version
+    attributes:
+      label: Starter revision or version
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Node, npm, ABP, and .NET versions
+      placeholder: "Node 22.x, npm 11.x, ABP 10.x, .NET 10"
+  - type: dropdown
+    id: topology
+    attributes:
+      label: ABP topology
+      options:
+        - No backend / UI only
+        - Layered application
+        - Single-layer application
+        - Microservice with Web Gateway
+        - Other
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant logs
+      render: shell

@@ -1,12 +1,14 @@
 import axios from 'axios'
 import i18n from '@/lib/i18n/i18n'
-import { ensureAccessToken } from '@/lib/auth/auth-client'
+import { ensureAccessToken, getUserManager } from '@/lib/auth/auth-client'
 import { getApiUrl } from '@/lib/runtime-config'
 
 export const api = axios.create({
   baseURL: '',
   headers: { 'X-Requested-With': 'XMLHttpRequest', 'Content-Type': 'application/json' },
 })
+
+let authRedirectStarted = false
 
 api.interceptors.request.use(async (config) => {
   config.baseURL = `${getApiUrl()}/api`
@@ -22,7 +24,13 @@ api.interceptors.response.use(
   (response) => response,
   async (error) => {
     if (error.response?.status === 401) {
-      sessionStorage.setItem('abp_return_url', window.location.pathname)
+      const returnUrl = window.location.href
+      sessionStorage.setItem('abp_return_url', returnUrl)
+
+      if (!authRedirectStarted && window.location.pathname !== '/auth/callback') {
+        authRedirectStarted = true
+        await getUserManager().signinRedirect({ state: { returnUrl } })
+      }
     }
     return Promise.reject(error)
   },

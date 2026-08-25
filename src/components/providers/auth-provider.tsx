@@ -46,7 +46,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   }, [clearPermissions])
 
-  const login = useCallback(async () => getUserManager().signinRedirect(), [])
+  const login = useCallback(
+    async () =>
+      getUserManager().signinRedirect({
+        state: { returnUrl: window.location.href },
+      }),
+    [],
+  )
   const logout = useCallback(async () => getUserManager().signoutRedirect(), [])
   const value = useMemo(
     () => ({ user, isAuthenticated: Boolean(user && !user.expired), isLoading, login, logout }),

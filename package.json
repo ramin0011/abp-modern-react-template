@@ -2,6 +2,20 @@
   "name": "abp-modern-react",
   "private": true,
   "version": "0.1.0",
+  "description": "A CLI-free, ABP-ready modern React starter built with Vite, TanStack, Tailwind, OIDC and Axios.",
+  "license": "MIT",
+  "keywords": [
+    "abp",
+    "abp-framework",
+    "react",
+    "vite",
+    "openid-connect",
+    "tanstack-router"
+  ],
+  "engines": {
+    "node": ">=22.12.0",
+    "npm": ">=10"
+  },
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -9,7 +23,9 @@
     "preview": "vite preview",
     "test": "vitest run",
     "test:watch": "vitest",
-    "lint": "eslint ."
+    "typecheck": "tsc -b --pretty false",
+    "lint": "eslint . --max-warnings 0",
+    "check": "npm run lint && npm run test && npm run build"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.1",
