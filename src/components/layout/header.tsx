@@ -12,7 +12,7 @@ export function Header({ onMenu }: { onMenu: () => void }) {
     document.documentElement.classList.toggle('dark', dark)
     localStorage.setItem('theme', dark ? 'dark' : 'light')
   }, [dark])
-  const name = (user?.profile.name as string | undefined) ?? 'Alex Morgan'
+  const name = (user?.profile.name as string | undefined) ?? user?.profile.given_name
   return (
     <header className="sticky top-0 z-20 flex h-20 items-center border-b border-border/70 bg-background/90 px-4 backdrop-blur-xl md:px-8">
       <button onClick={onMenu} className="mr-3 rounded-lg p-2 hover:bg-muted lg:hidden"><Menu className="h-5 w-5" /></button>

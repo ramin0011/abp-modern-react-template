@@ -10,6 +10,6 @@ interface NavigationItem {
 export const navigation: NavigationItem[] = [
   { label: 'Menu:Home', to: '/', icon: LayoutDashboard },
   { label: 'Menu:Products', to: '/products', icon: Boxes },
-  { label: 'Menu:Team', to: '/team', icon: Users, policy: 'OrbitAdmin.Team' },
+  { label: 'Menu:Team', to: '/team', icon: Users, policy: 'AbpIdentity.Users' },
   { label: 'Menu:Settings', to: '/settings', icon: Settings },
 ]

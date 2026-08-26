@@ -128,7 +128,7 @@ After authentication, the app fetches:
 GET /api/abp/application-configuration
 ```
 
-It reads `auth.grantedPolicies`. The included Team route uses the demonstration policy `OrbitAdmin.Team`. Replace it in:
+It reads `auth.grantedPolicies`. The included Team route uses the demonstration policy `AbpIdentity.Users`. Replace it in:
 
 - `src/lib/routing/route-config.ts`
 - `src/router.tsx`
@@ -210,7 +210,7 @@ The current user or client lacks an ABP permission. Grant it and sign in again o
 
 ### Team menu is missing
 
-`OrbitAdmin.Team` was not returned as `true`. Replace it with a real backend permission or define and grant that policy.
+`AbpIdentity.Users` was not returned as `true`. Grant it to the current user/role or replace it with another backend permission.
 
 ### Local HTTPS certificate errors
 

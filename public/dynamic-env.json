@@ -1,20 +1,19 @@
 {
   "application": {
     "baseUrl": "http://localhost:3000",
-    "name": "Orbit Admin"
+    "name": "CodeGenerator"
   },
   "oAuthConfig": {
-    "issuer": "https://localhost:44301/",
-    "redirectUri": "http://localhost:3000/auth/callback",
+    "issuer": "https://localhost:44366/",
+    "redirectUri": "http://localhost:3000/authentication/login-callback",
     "postLogoutRedirectUri": "http://localhost:3000",
-    "clientId": "Orbit_Admin_App",
-    "scope": "offline_access openid profile email phone OrbitAdmin"
+    "clientId": "CodeGenerator_React",
+    "scope": "offline_access openid profile email phone roles CodeGenerator"
   },
   "apis": {
     "default": {
-      "url": "https://localhost:44300",
-      "rootNamespace": "Orbit.Admin"
+      "url": "https://localhost:44366",
+      "rootNamespace": "CodeGenerator"
     }
-  },
-  "adminConsoleUrl": "https://localhost:44307"
+  }
 }

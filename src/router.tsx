@@ -48,10 +48,26 @@ const settingsRoute = createRoute({ getParentRoute: () => rootRoute, path: '/set
 const teamRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: '/team',
-  beforeLoad: ({ location }) => requirePermission('OrbitAdmin.Team', location.href),
+  beforeLoad: ({ location }) => requirePermission('AbpIdentity.Users', location.href),
   component: TeamPage,
 })
-const callbackRoute = createRoute({ getParentRoute: () => rootRoute, path: '/auth/callback', component: AuthCallbackPage })
-const routeTree = rootRoute.addChildren([indexRoute, productsRoute, teamRoute, settingsRoute, callbackRoute])
+const authCallbackRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/auth/callback',
+  component: AuthCallbackPage,
+})
+const authenticationLoginCallbackRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/authentication/login-callback',
+  component: AuthCallbackPage,
+})
+const routeTree = rootRoute.addChildren([
+  indexRoute,
+  productsRoute,
+  teamRoute,
+  settingsRoute,
+  authCallbackRoute,
+  authenticationLoginCallbackRoute,
+])
 export const router = createRouter({ routeTree, defaultPreload: 'intent', scrollRestoration: true })
 declare module '@tanstack/react-router' { interface Register { router: typeof router } }

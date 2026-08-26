@@ -9,6 +9,7 @@ export const api = axios.create({
 })
 
 let authRedirectStarted = false
+const authCallbackPaths = ['/auth/callback', '/authentication/login-callback']
 
 api.interceptors.request.use(async (config) => {
   config.baseURL = `${getApiUrl()}/api`
@@ -27,7 +28,7 @@ api.interceptors.response.use(
       const returnUrl = window.location.href
       sessionStorage.setItem('abp_return_url', returnUrl)
 
-      if (!authRedirectStarted && window.location.pathname !== '/auth/callback') {
+      if (!authRedirectStarted && !authCallbackPaths.includes(window.location.pathname)) {
         authRedirectStarted = true
         await getUserManager().signinRedirect({ state: { returnUrl } })
       }
