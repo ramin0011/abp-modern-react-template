@@ -9,6 +9,7 @@ This directory contains implementation notes intended for developers working on 
 
 - [Authentication and authorization architecture](./AUTHENTICATION.md)
 - [ABP backend integration](../ABP_BACKEND_INTEGRATION.md)
+- [CodeGenerator backend setup](../CODEGENERATOR_BACKEND_SETUP.md)
 - [Runtime configuration](../CONFIGURATION.md)
 - [Deployment](../DEPLOYMENT.md)
 - [Project structure](../PROJECT_STRUCTURE.md)

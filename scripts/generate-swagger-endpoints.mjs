@@ -122,6 +122,17 @@ function selectRequestContent(content) {
   return contentType ? { contentType, schema: content[contentType].schema } : undefined
 }
 
+function selectSuccessResponse(responses) {
+  const successStatus = Object.keys(responses ?? {})
+    .filter((status) => /^2\d\d$/.test(status))
+    .sort()[0]
+  if (!successStatus) return undefined
+
+  const response = responses[successStatus]
+  const selectedContent = selectRequestContent(response.content)
+  return { status: successStatus, schema: selectedContent?.schema }
+}
+
 function resolveParameter(parameter, document) {
   if (!parameter?.$ref) return parameter
   return document.components?.parameters?.[refName(parameter.$ref)] ?? parameter
@@ -152,6 +163,7 @@ for (const [swaggerPath, pathItem] of Object.entries(document.paths ?? {})) {
     const name = occurrence === 1 ? baseName : `${baseName}${occurrence}`
     const parameters = [...(pathItem.parameters ?? []), ...(operation.parameters ?? [])]
     const requestContent = selectRequestContent(operation.requestBody?.content)
+    const successResponse = selectSuccessResponse(operation.responses)
     operations.push({
       name,
       method: method.toUpperCase(),
@@ -161,34 +173,36 @@ for (const [swaggerPath, pathItem] of Object.entries(document.paths ?? {})) {
       parameters,
       requestBodyRequired: operation.requestBody?.required === true,
       requestContent,
+      successResponse,
     })
   }
 }
 
-const requestModelNames = new Set()
+const modelNames = new Set()
 for (const operation of operations) {
   for (const parameter of operation.parameters) {
-    collectRefs(resolveParameter(parameter, document)?.schema, requestModelNames)
+    collectRefs(resolveParameter(parameter, document)?.schema, modelNames)
   }
-  collectRefs(operation.requestContent?.schema, requestModelNames)
+  collectRefs(operation.requestContent?.schema, modelNames)
+  collectRefs(operation.successResponse?.schema, modelNames)
 }
 
-const pendingModels = [...requestModelNames]
+const pendingModels = [...modelNames]
 for (let index = 0; index < pendingModels.length; index += 1) {
   const modelName = pendingModels[index]
-  const before = requestModelNames.size
-  collectRefs(schemas[modelName], requestModelNames)
-  if (requestModelNames.size > before) {
-    for (const name of requestModelNames) {
+  const before = modelNames.size
+  collectRefs(schemas[modelName], modelNames)
+  if (modelNames.size > before) {
+    for (const name of modelNames) {
       if (!pendingModels.includes(name)) pendingModels.push(name)
     }
   }
 }
 
-const missingModels = [...requestModelNames].filter((name) => !schemas[name])
+const missingModels = [...modelNames].filter((name) => !schemas[name])
 if (missingModels.length) throw new Error(`Missing component schemas: ${missingModels.join(', ')}`)
 
-const modelLines = [...requestModelNames]
+const modelLines = [...modelNames]
   .sort((left, right) => left.localeCompare(right))
   .map((name) => `  ${JSON.stringify(name)}: ${schemaToType(schemas[name])}`)
 
@@ -216,8 +230,16 @@ const requestLines = operations.map((operation) => {
   return `  ${operation.name}: ${requestType}`
 })
 
-const output = `/* eslint-disable @typescript-eslint/no-empty-object-type */
-/**
+const responseLines = operations.map((operation) => {
+  const responseType = operation.successResponse?.schema
+    ? schemaToType(operation.successResponse.schema)
+    : operation.successResponse
+      ? 'void'
+      : 'unknown'
+  return `  ${operation.name}: ${responseType}`
+})
+
+const output = `/**
  * Generated from ${swaggerUrl}
  * API: ${document.info?.title ?? 'Unknown'}${document.info?.version ? ` (${document.info.version})` : ''}
  *
@@ -237,7 +259,7 @@ export interface ApiEndpoint {
   requestModel?: keyof ApiModels
 }
 
-/** Component schemas referenced by request parameters or request bodies. */
+/** Component schemas referenced by requests or successful responses. */
 export interface ApiModels {
 ${modelLines.join('\n')}
 }
@@ -252,11 +274,17 @@ export interface ApiRequests {
 ${requestLines.join('\n')}
 }
 
+/** Successful response body for each endpoint. */
+export interface ApiResponses {
+${responseLines.join('\n')}
+}
+
 export type ApiEndpointName = keyof typeof endpoints
 export type ApiRequest<TEndpoint extends ApiEndpointName> = ApiRequests[TEndpoint]
+export type ApiResponse<TEndpoint extends ApiEndpointName> = ApiResponses[TEndpoint]
 `
 
 await writeFile(outputPath, output, 'utf8')
 console.log(
-  `Generated ${outputPath}: ${operations.length} operations, ${requestModelNames.size} request models.`,
+  `Generated ${outputPath}: ${operations.length} operations, ${modelNames.size} referenced models.`,
 )

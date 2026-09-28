@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-empty-object-type */
 /**
  * Generated from https://localhost:44366/swagger/v1/swagger.json
  * API: CodeGenerator API (v1)
@@ -19,8 +18,29 @@ export interface ApiEndpoint {
   requestModel?: keyof ApiModels
 }
 
-/** Component schemas referenced by request parameters or request bodies. */
+/** Component schemas referenced by requests or successful responses. */
 export interface ApiModels {
+  "Dotin.CodeGenerator.AppServices.DepartmentWorkItemJourneyDto": {
+    id?: string
+    parentJobInfoId?: string
+    childJobInfoId?: string | null
+    developmentJobDocumentId?: string | null
+    targetDepartment?: ApiModels["Dotin.CodeGenerator.Enums.JobStatus"]
+    status?: ApiModels["Dotin.CodeGenerator.Enums.DepartmentWorkItemStatus"]
+    selectedAgentTeamName?: string | null
+    creatorUserName?: string | null
+    createdAt?: string
+  }
+  "Dotin.CodeGenerator.AppServices.DevelopmentDocumentJourneyDto": {
+    id?: string
+    name?: string | null
+    status?: ApiModels["Dotin.CodeGenerator.Enums.DevelopmentDocumentStatus"]
+    sourceDepartment?: ApiModels["Dotin.CodeGenerator.Enums.JobStatus"]
+    targetDepartment?: ApiModels["Dotin.CodeGenerator.Enums.JobStatus"]
+    jiraUrl?: string | null
+    creatorUserName?: string | null
+    createdAt?: string
+  }
   "Dotin.CodeGenerator.AppServices.Dtos.ActionsAssetsDto": {
     id?: string
     creationTime?: string
@@ -88,6 +108,10 @@ export interface ApiModels {
     size?: number
     content: string
   }
+  "Dotin.CodeGenerator.AppServices.Dtos.CodeStudioWorkspaceDto": {
+    jobId?: string
+    files?: Array<ApiModels["Dotin.CodeGenerator.Models.Services.FolderInfo"]> | null
+  }
   "Dotin.CodeGenerator.AppServices.Dtos.CreateDepartmentWorkItemDto": {
     parentJobInfoId?: string
     developmentJobDocumentId?: string | null
@@ -133,6 +157,23 @@ export interface ApiModels {
     clearPassword?: boolean
     clearToken?: boolean
   }
+  "Dotin.CodeGenerator.AppServices.Dtos.DepartmentWorkItemDto": {
+    id?: string
+    creationTime?: string
+    creatorId?: string | null
+    lastModificationTime?: string | null
+    lastModifierId?: string | null
+    parentJobInfoId?: string
+    developmentJobDocumentId?: string | null
+    parentJobName?: string | null
+    content?: string | null
+    supportingDocument?: string | null
+    targetDepartment?: ApiModels["Dotin.CodeGenerator.Enums.JobStatus"]
+    status?: ApiModels["Dotin.CodeGenerator.Enums.DepartmentWorkItemStatus"]
+    selectedAgentTeamId?: string | null
+    childJobInfoId?: string | null
+    backgroundJobId?: string | null
+  }
   "Dotin.CodeGenerator.AppServices.Dtos.DevelopmentDocumentListView": 0 | 1
   "Dotin.CodeGenerator.AppServices.Dtos.DevelopmentJobDocumentCreateReadUpdateDto": {
     id?: string
@@ -152,6 +193,7 @@ export interface ApiModels {
     startedJobInfoId?: string | null
     backgroundJobId?: string | null
   }
+  "Dotin.CodeGenerator.AppServices.Dtos.GitActionType": 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14
   "Dotin.CodeGenerator.AppServices.Dtos.GitDto": {
     userIntegrationId?: string | null
     teamSkillId?: string | null
@@ -167,15 +209,43 @@ export interface ApiModels {
     order?: number
     description?: string | null
   }
+  "Dotin.CodeGenerator.AppServices.Dtos.GitPlanActionDto": {
+    order?: number
+    action?: ApiModels["Dotin.CodeGenerator.AppServices.Dtos.GitActionType"]
+    description?: string | null
+    risk?: string | null
+  }
   "Dotin.CodeGenerator.AppServices.Dtos.GitPlanApprovalDto": {
     planId?: string
     summary?: string | null
     actions?: Array<ApiModels["Dotin.CodeGenerator.AppServices.Dtos.GitPlanActionApprovalDto"]> | null
   }
+  "Dotin.CodeGenerator.AppServices.Dtos.GitPlanDto": {
+    planId?: string
+    summary?: string | null
+    actions?: Array<ApiModels["Dotin.CodeGenerator.AppServices.Dtos.GitPlanActionDto"]> | null
+    expiresAtUtc?: string
+  }
   "Dotin.CodeGenerator.AppServices.Dtos.JiraAddCommentRequestDto": {
     userIntegrationId: string
     issueKey: string
     comment: string
+  }
+  "Dotin.CodeGenerator.AppServices.Dtos.JiraIssueDto": {
+    key?: string | null
+    summary?: string | null
+    description?: string | null
+    status?: string | null
+    type?: string | null
+    priority?: string | null
+    url?: string | null
+    similarityReason?: string | null
+  }
+  "Dotin.CodeGenerator.AppServices.Dtos.JiraRecommendationDto": {
+    issue?: ApiModels["Dotin.CodeGenerator.AppServices.Dtos.JiraIssueDto"]
+    suggestedComment?: string | null
+    explanation?: string | null
+    similarIssues?: Array<ApiModels["Dotin.CodeGenerator.AppServices.Dtos.JiraIssueDto"]> | null
   }
   "Dotin.CodeGenerator.AppServices.Dtos.JiraRecommendationRequestDto": {
     userIntegrationId: string
@@ -187,8 +257,38 @@ export interface ApiModels {
     name?: string | null
     tasks?: Record<string, string> | null
   }
+  "Dotin.CodeGenerator.AppServices.Dtos.LogsDto": {
+    title?: string | null
+    content?: string | null
+  }
+  "Dotin.CodeGenerator.AppServices.Dtos.LogsListDto": {
+    list?: Array<ApiModels["Dotin.CodeGenerator.AppServices.Dtos.LogsDto"]> | null
+    title?: string | null
+  }
   "Dotin.CodeGenerator.AppServices.Dtos.MoveOrganizationUnitInput": {
     parentId?: string | null
+  }
+  "Dotin.CodeGenerator.AppServices.Dtos.OrganizationMemberDto": {
+    id?: string
+    userName?: string | null
+    name?: string | null
+    surname?: string | null
+    email?: string | null
+    isActive?: boolean
+    organizationUnitIds?: Array<string> | null
+  }
+  "Dotin.CodeGenerator.AppServices.Dtos.OrganizationUnitDto": {
+    id?: string
+    parentId?: string | null
+    displayName?: string | null
+    code?: string | null
+    memberCount?: number
+    childCount?: number
+  }
+  "Dotin.CodeGenerator.AppServices.Dtos.ProcessStartResultDto": {
+    backgroundJobId?: string | null
+    jobInfoId?: string
+    department?: ApiModels["Dotin.CodeGenerator.Enums.JobStatus"]
   }
   "Dotin.CodeGenerator.AppServices.Dtos.RenameOrganizationUnitInput": {
     displayName: string
@@ -235,15 +335,77 @@ export interface ApiModels {
     fileContent: string
     contentType?: string | null
   }
+  "Dotin.CodeGenerator.AppServices.Dtos.UserIntegrationDto": {
+    id?: string
+    creationTime?: string
+    creatorId?: string | null
+    lastModificationTime?: string | null
+    lastModifierId?: string | null
+    displayName?: string | null
+    username?: string | null
+    url?: string | null
+    type?: ApiModels["Dotin.CodeGenerator.Enums.IntegrationType"]
+    hasPassword?: boolean
+    hasToken?: boolean
+  }
+  "Dotin.CodeGenerator.AppServices.JobJourneyDto": {
+    jobInfoId?: string
+    parentId?: string | null
+    title?: string | null
+    department?: ApiModels["Dotin.CodeGenerator.Enums.JobStatus"]
+    workflow?: ApiModels["Dotin.CodeGenerator.Enums.WrokFlowActionType"]
+    agentTeamName?: string | null
+    creatorUserName?: string | null
+    createdAt?: string
+    lastModificationTime?: string | null
+    dueDate?: string
+    state?: string | null
+    developmentDocument?: ApiModels["Dotin.CodeGenerator.AppServices.DevelopmentDocumentJourneyDto"]
+    workItems?: Array<ApiModels["Dotin.CodeGenerator.AppServices.DepartmentWorkItemJourneyDto"]> | null
+    children?: Array<ApiModels["Dotin.CodeGenerator.AppServices.JobJourneyDto"]> | null
+  }
+  "Dotin.CodeGenerator.AppServices.RunningJobDto": {
+    jobInfoId?: string | null
+    stopId?: string | null
+    jobType?: string | null
+    startedAt?: string | null
+    title?: string | null
+    logsPath?: string | null
+    savePath?: string | null
+    state?: string | null
+    jiraId?: string | null
+    dueDate?: string
+    status?: ApiModels["Dotin.CodeGenerator.Enums.JobStatus"]
+    workflow?: ApiModels["Dotin.CodeGenerator.Enums.WrokFlowActionType"]
+    creatorUserName?: string | null
+    lastModifierUserName?: string | null
+    lastModificationTime?: string | null
+    agentTeamName?: string | null
+    parentId?: string | null
+    developmentJobDocumentId?: string | null
+    children?: Array<ApiModels["Dotin.CodeGenerator.AppServices.RunningJobDto"]> | null
+  }
   "Dotin.CodeGenerator.Enums.AgentFunctionCodeType": 0 | 1 | 2 | 3
   "Dotin.CodeGenerator.Enums.AgentMemoryType": 0 | 1 | 2 | 3 | 4
   "Dotin.CodeGenerator.Enums.AgentType": 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13
+  "Dotin.CodeGenerator.Enums.DepartmentWorkItemStatus": 0 | 1 | 2
   "Dotin.CodeGenerator.Enums.DevelopmentDocumentStatus": 0 | 1 | 2 | 3
   "Dotin.CodeGenerator.Enums.FileSavingStrategy": 0 | 1 | 2
   "Dotin.CodeGenerator.Enums.IntegrationType": 0 | 1
   "Dotin.CodeGenerator.Enums.JobStatus": 0 | 1 | 2 | 3 | 4 | 5
   "Dotin.CodeGenerator.Enums.LLMProvider": 0 | 1
+  "Dotin.CodeGenerator.Enums.RagType": 0 | 1
   "Dotin.CodeGenerator.Enums.WrokFlowActionType": 0 | 1 | 2 | 3 | 4
+  "Dotin.CodeGenerator.Models.Response.CodeRunnerResult": {
+    code?: string | null
+    runsFine?: boolean
+    runResult?: string | null
+    errorMessage?: string | null
+  }
+  "Dotin.CodeGenerator.Models.Response.DebateResult": {
+    referee?: string | null
+    summary?: string | null
+  }
   "Dotin.CodeGenerator.Models.Services.AgentConnectorTalk": {
     agentType?: ApiModels["Dotin.CodeGenerator.Enums.LLMProvider"]
     prompt?: string | null
@@ -273,6 +435,15 @@ export interface ApiModels {
     learningSource?: string | null
     pdf?: string | null
   }
+  "Dotin.CodeGenerator.Models.Services.RagDataDto": {
+    key?: number
+    sqlId?: string | null
+    categoryId?: string | null
+    type?: ApiModels["Dotin.CodeGenerator.Enums.RagType"]
+    documentName?: string | null
+    content?: string | null
+    tags?: Array<string> | null
+  }
   "Dotin.CodeGenerator.Models.Services.SemanticPluginInfo": {
     pluginDisplayName: string | null
     className: string | null
@@ -297,6 +468,18 @@ export interface ApiModels {
     agentType?: ApiModels["Dotin.CodeGenerator.Enums.AgentType"]
     jobInfoId?: string
     agentMemberDto?: ApiModels["Dotin.CodeGenerator.AppServices.Dtos.AgentMemberDto"]
+  }
+  "Dotin.CodeGenerator.Services.AiServies.Process.MonacoResponse": {
+    codes?: Array<ApiModels["Dotin.CodeGenerator.Services.AiServies.Process.MonacoResponseFileInfo"]> | null
+  }
+  "Dotin.CodeGenerator.Services.AiServies.Process.MonacoResponseFileInfo": {
+    fileName?: string | null
+    path?: string | null
+    code?: string | null
+    isEditedVersion?: boolean
+    isNewFile?: boolean
+    explanation?: string | null
+    id?: string | null
   }
   "Dotin.CodeGenerator.Services.AiServies.Process.ProcessRequest": {
     prompt?: string | null
@@ -329,6 +512,17 @@ export interface ApiModels {
     currentPassword?: string | null
     newPassword: string
   }
+  "Volo.Abp.Account.ProfileDto": {
+    extraProperties?: Record<string, unknown> | null
+    userName?: string | null
+    email?: string | null
+    name?: string | null
+    surname?: string | null
+    phoneNumber?: string | null
+    isExternal?: boolean
+    hasPassword?: boolean
+    concurrencyStamp?: string | null
+  }
   "Volo.Abp.Account.RegisterDto": {
     extraProperties?: Record<string, unknown> | null
     userName: string
@@ -360,10 +554,300 @@ export interface ApiModels {
     userId?: string
     resetToken: string
   }
+  "Volo.Abp.Account.Web.Areas.Account.Controllers.Models.AbpLoginResult": {
+    result?: ApiModels["Volo.Abp.Account.Web.Areas.Account.Controllers.Models.LoginResultType"]
+    description?: string | null
+  }
+  "Volo.Abp.Account.Web.Areas.Account.Controllers.Models.LoginResultType": 1 | 2 | 3 | 4 | 5
   "Volo.Abp.Account.Web.Areas.Account.Controllers.Models.UserLoginInfo": {
     userNameOrEmailAddress: string
     password: string
     rememberMe?: boolean
+  }
+  "Volo.Abp.Application.Dtos.ListResultDto`1[[Volo.Abp.Identity.IdentityRoleDto, Volo.Abp.Identity.Application.Contracts, Version=9.2.2.0, Culture=neutral, PublicKeyToken=null]]": {
+    items?: Array<ApiModels["Volo.Abp.Identity.IdentityRoleDto"]> | null
+  }
+  "Volo.Abp.Application.Dtos.ListResultDto`1[[Volo.Abp.Users.UserData, Volo.Abp.Users.Abstractions, Version=9.2.2.0, Culture=neutral, PublicKeyToken=null]]": {
+    items?: Array<ApiModels["Volo.Abp.Users.UserData"]> | null
+  }
+  "Volo.Abp.Application.Dtos.PagedResultDto`1[[Dotin.CodeGenerator.AppServices.Dtos.ActionsAssetsDto, Dotin.CodeGenerator.Contracts, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]": {
+    items?: Array<ApiModels["Dotin.CodeGenerator.AppServices.Dtos.ActionsAssetsDto"]> | null
+    totalCount?: number
+  }
+  "Volo.Abp.Application.Dtos.PagedResultDto`1[[Dotin.CodeGenerator.AppServices.Dtos.AgentMemberDto, Dotin.CodeGenerator.Contracts, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]": {
+    items?: Array<ApiModels["Dotin.CodeGenerator.AppServices.Dtos.AgentMemberDto"]> | null
+    totalCount?: number
+  }
+  "Volo.Abp.Application.Dtos.PagedResultDto`1[[Dotin.CodeGenerator.AppServices.Dtos.AgentMemoryDto, Dotin.CodeGenerator.Contracts, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]": {
+    items?: Array<ApiModels["Dotin.CodeGenerator.AppServices.Dtos.AgentMemoryDto"]> | null
+    totalCount?: number
+  }
+  "Volo.Abp.Application.Dtos.PagedResultDto`1[[Dotin.CodeGenerator.AppServices.Dtos.AgentTeamDto, Dotin.CodeGenerator.Contracts, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]": {
+    items?: Array<ApiModels["Dotin.CodeGenerator.AppServices.Dtos.AgentTeamDto"]> | null
+    totalCount?: number
+  }
+  "Volo.Abp.Application.Dtos.PagedResultDto`1[[Dotin.CodeGenerator.AppServices.Dtos.DepartmentWorkItemDto, Dotin.CodeGenerator.Contracts, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]": {
+    items?: Array<ApiModels["Dotin.CodeGenerator.AppServices.Dtos.DepartmentWorkItemDto"]> | null
+    totalCount?: number
+  }
+  "Volo.Abp.Application.Dtos.PagedResultDto`1[[Dotin.CodeGenerator.AppServices.Dtos.DevelopmentJobDocumentCreateReadUpdateDto, Dotin.CodeGenerator.Contracts, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]": {
+    items?: Array<ApiModels["Dotin.CodeGenerator.AppServices.Dtos.DevelopmentJobDocumentCreateReadUpdateDto"]> | null
+    totalCount?: number
+  }
+  "Volo.Abp.Application.Dtos.PagedResultDto`1[[Dotin.CodeGenerator.AppServices.Dtos.JobTasksDto, Dotin.CodeGenerator.Contracts, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]": {
+    items?: Array<ApiModels["Dotin.CodeGenerator.AppServices.Dtos.JobTasksDto"]> | null
+    totalCount?: number
+  }
+  "Volo.Abp.Application.Dtos.PagedResultDto`1[[Dotin.CodeGenerator.AppServices.Dtos.OrganizationMemberDto, Dotin.CodeGenerator.Contracts, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]": {
+    items?: Array<ApiModels["Dotin.CodeGenerator.AppServices.Dtos.OrganizationMemberDto"]> | null
+    totalCount?: number
+  }
+  "Volo.Abp.Application.Dtos.PagedResultDto`1[[Dotin.CodeGenerator.AppServices.Dtos.TeamSkillsDto, Dotin.CodeGenerator.Contracts, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]": {
+    items?: Array<ApiModels["Dotin.CodeGenerator.AppServices.Dtos.TeamSkillsDto"]> | null
+    totalCount?: number
+  }
+  "Volo.Abp.Application.Dtos.PagedResultDto`1[[Dotin.CodeGenerator.AppServices.JobJourneyDto, Dotin.CodeGenerator.Contracts, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]": {
+    items?: Array<ApiModels["Dotin.CodeGenerator.AppServices.JobJourneyDto"]> | null
+    totalCount?: number
+  }
+  "Volo.Abp.Application.Dtos.PagedResultDto`1[[Dotin.CodeGenerator.AppServices.RunningJobDto, Dotin.CodeGenerator.Contracts, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]": {
+    items?: Array<ApiModels["Dotin.CodeGenerator.AppServices.RunningJobDto"]> | null
+    totalCount?: number
+  }
+  "Volo.Abp.Application.Dtos.PagedResultDto`1[[Volo.Abp.Identity.IdentityRoleDto, Volo.Abp.Identity.Application.Contracts, Version=9.2.2.0, Culture=neutral, PublicKeyToken=null]]": {
+    items?: Array<ApiModels["Volo.Abp.Identity.IdentityRoleDto"]> | null
+    totalCount?: number
+  }
+  "Volo.Abp.Application.Dtos.PagedResultDto`1[[Volo.Abp.Identity.IdentityUserDto, Volo.Abp.Identity.Application.Contracts, Version=9.2.2.0, Culture=neutral, PublicKeyToken=null]]": {
+    items?: Array<ApiModels["Volo.Abp.Identity.IdentityUserDto"]> | null
+    totalCount?: number
+  }
+  "Volo.Abp.Application.Dtos.PagedResultDto`1[[Volo.Abp.TenantManagement.TenantDto, Volo.Abp.TenantManagement.Application.Contracts, Version=9.2.2.0, Culture=neutral, PublicKeyToken=null]]": {
+    items?: Array<ApiModels["Volo.Abp.TenantManagement.TenantDto"]> | null
+    totalCount?: number
+  }
+  "Volo.Abp.AspNetCore.Mvc.ApplicationConfigurations.ApplicationAuthConfigurationDto": {
+    grantedPolicies?: Record<string, boolean> | null
+  }
+  "Volo.Abp.AspNetCore.Mvc.ApplicationConfigurations.ApplicationConfigurationDto": {
+    localization?: ApiModels["Volo.Abp.AspNetCore.Mvc.ApplicationConfigurations.ApplicationLocalizationConfigurationDto"]
+    auth?: ApiModels["Volo.Abp.AspNetCore.Mvc.ApplicationConfigurations.ApplicationAuthConfigurationDto"]
+    setting?: ApiModels["Volo.Abp.AspNetCore.Mvc.ApplicationConfigurations.ApplicationSettingConfigurationDto"]
+    currentUser?: ApiModels["Volo.Abp.AspNetCore.Mvc.ApplicationConfigurations.CurrentUserDto"]
+    features?: ApiModels["Volo.Abp.AspNetCore.Mvc.ApplicationConfigurations.ApplicationFeatureConfigurationDto"]
+    globalFeatures?: ApiModels["Volo.Abp.AspNetCore.Mvc.ApplicationConfigurations.ApplicationGlobalFeatureConfigurationDto"]
+    multiTenancy?: ApiModels["Volo.Abp.AspNetCore.Mvc.MultiTenancy.MultiTenancyInfoDto"]
+    currentTenant?: ApiModels["Volo.Abp.AspNetCore.Mvc.MultiTenancy.CurrentTenantDto"]
+    timing?: ApiModels["Volo.Abp.AspNetCore.Mvc.ApplicationConfigurations.TimingDto"]
+    clock?: ApiModels["Volo.Abp.AspNetCore.Mvc.ApplicationConfigurations.ClockDto"]
+    objectExtensions?: ApiModels["Volo.Abp.AspNetCore.Mvc.ApplicationConfigurations.ObjectExtending.ObjectExtensionsDto"]
+    extraProperties?: Record<string, unknown> | null
+  }
+  "Volo.Abp.AspNetCore.Mvc.ApplicationConfigurations.ApplicationFeatureConfigurationDto": {
+    values?: Record<string, string | null> | null
+  }
+  "Volo.Abp.AspNetCore.Mvc.ApplicationConfigurations.ApplicationGlobalFeatureConfigurationDto": {
+    enabledFeatures?: Array<string> | null
+  }
+  "Volo.Abp.AspNetCore.Mvc.ApplicationConfigurations.ApplicationLocalizationConfigurationDto": {
+    values?: Record<string, Record<string, string>> | null
+    resources?: Record<string, ApiModels["Volo.Abp.AspNetCore.Mvc.ApplicationConfigurations.ApplicationLocalizationResourceDto"]> | null
+    languages?: Array<ApiModels["Volo.Abp.Localization.LanguageInfo"]> | null
+    currentCulture?: ApiModels["Volo.Abp.AspNetCore.Mvc.ApplicationConfigurations.CurrentCultureDto"]
+    defaultResourceName?: string | null
+    languagesMap?: Record<string, Array<ApiModels["Volo.Abp.NameValue"]>> | null
+    languageFilesMap?: Record<string, Array<ApiModels["Volo.Abp.NameValue"]>> | null
+  }
+  "Volo.Abp.AspNetCore.Mvc.ApplicationConfigurations.ApplicationLocalizationDto": {
+    resources?: Record<string, ApiModels["Volo.Abp.AspNetCore.Mvc.ApplicationConfigurations.ApplicationLocalizationResourceDto"]> | null
+    currentCulture?: ApiModels["Volo.Abp.AspNetCore.Mvc.ApplicationConfigurations.CurrentCultureDto"]
+  }
+  "Volo.Abp.AspNetCore.Mvc.ApplicationConfigurations.ApplicationLocalizationResourceDto": {
+    texts?: Record<string, string> | null
+    baseResources?: Array<string> | null
+  }
+  "Volo.Abp.AspNetCore.Mvc.ApplicationConfigurations.ApplicationSettingConfigurationDto": {
+    values?: Record<string, string | null> | null
+  }
+  "Volo.Abp.AspNetCore.Mvc.ApplicationConfigurations.ClockDto": {
+    kind?: string | null
+  }
+  "Volo.Abp.AspNetCore.Mvc.ApplicationConfigurations.CurrentCultureDto": {
+    displayName?: string | null
+    englishName?: string | null
+    threeLetterIsoLanguageName?: string | null
+    twoLetterIsoLanguageName?: string | null
+    isRightToLeft?: boolean
+    cultureName?: string | null
+    name?: string | null
+    nativeName?: string | null
+    dateTimeFormat?: ApiModels["Volo.Abp.AspNetCore.Mvc.ApplicationConfigurations.DateTimeFormatDto"]
+  }
+  "Volo.Abp.AspNetCore.Mvc.ApplicationConfigurations.CurrentUserDto": {
+    isAuthenticated?: boolean
+    id?: string | null
+    tenantId?: string | null
+    impersonatorUserId?: string | null
+    impersonatorTenantId?: string | null
+    impersonatorUserName?: string | null
+    impersonatorTenantName?: string | null
+    userName?: string | null
+    name?: string | null
+    surName?: string | null
+    email?: string | null
+    emailVerified?: boolean
+    phoneNumber?: string | null
+    phoneNumberVerified?: boolean
+    roles?: Array<string> | null
+    sessionId?: string | null
+  }
+  "Volo.Abp.AspNetCore.Mvc.ApplicationConfigurations.DateTimeFormatDto": {
+    calendarAlgorithmType?: string | null
+    dateTimeFormatLong?: string | null
+    shortDatePattern?: string | null
+    fullDateTimePattern?: string | null
+    dateSeparator?: string | null
+    shortTimePattern?: string | null
+    longTimePattern?: string | null
+  }
+  "Volo.Abp.AspNetCore.Mvc.ApplicationConfigurations.IanaTimeZone": {
+    timeZoneName?: string | null
+  }
+  "Volo.Abp.AspNetCore.Mvc.ApplicationConfigurations.ObjectExtending.EntityExtensionDto": {
+    properties?: Record<string, ApiModels["Volo.Abp.AspNetCore.Mvc.ApplicationConfigurations.ObjectExtending.ExtensionPropertyDto"]> | null
+    configuration?: Record<string, unknown> | null
+  }
+  "Volo.Abp.AspNetCore.Mvc.ApplicationConfigurations.ObjectExtending.ExtensionEnumDto": {
+    fields?: Array<ApiModels["Volo.Abp.AspNetCore.Mvc.ApplicationConfigurations.ObjectExtending.ExtensionEnumFieldDto"]> | null
+    localizationResource?: string | null
+  }
+  "Volo.Abp.AspNetCore.Mvc.ApplicationConfigurations.ObjectExtending.ExtensionEnumFieldDto": {
+    name?: string | null
+    value?: unknown | null
+  }
+  "Volo.Abp.AspNetCore.Mvc.ApplicationConfigurations.ObjectExtending.ExtensionPropertyApiCreateDto": {
+    isAvailable?: boolean
+  }
+  "Volo.Abp.AspNetCore.Mvc.ApplicationConfigurations.ObjectExtending.ExtensionPropertyApiDto": {
+    onGet?: ApiModels["Volo.Abp.AspNetCore.Mvc.ApplicationConfigurations.ObjectExtending.ExtensionPropertyApiGetDto"]
+    onCreate?: ApiModels["Volo.Abp.AspNetCore.Mvc.ApplicationConfigurations.ObjectExtending.ExtensionPropertyApiCreateDto"]
+    onUpdate?: ApiModels["Volo.Abp.AspNetCore.Mvc.ApplicationConfigurations.ObjectExtending.ExtensionPropertyApiUpdateDto"]
+  }
+  "Volo.Abp.AspNetCore.Mvc.ApplicationConfigurations.ObjectExtending.ExtensionPropertyApiGetDto": {
+    isAvailable?: boolean
+  }
+  "Volo.Abp.AspNetCore.Mvc.ApplicationConfigurations.ObjectExtending.ExtensionPropertyApiUpdateDto": {
+    isAvailable?: boolean
+  }
+  "Volo.Abp.AspNetCore.Mvc.ApplicationConfigurations.ObjectExtending.ExtensionPropertyAttributeDto": {
+    typeSimple?: string | null
+    config?: Record<string, unknown> | null
+  }
+  "Volo.Abp.AspNetCore.Mvc.ApplicationConfigurations.ObjectExtending.ExtensionPropertyDto": {
+    type?: string | null
+    typeSimple?: string | null
+    displayName?: ApiModels["Volo.Abp.AspNetCore.Mvc.ApplicationConfigurations.ObjectExtending.LocalizableStringDto"]
+    api?: ApiModels["Volo.Abp.AspNetCore.Mvc.ApplicationConfigurations.ObjectExtending.ExtensionPropertyApiDto"]
+    ui?: ApiModels["Volo.Abp.AspNetCore.Mvc.ApplicationConfigurations.ObjectExtending.ExtensionPropertyUiDto"]
+    policy?: ApiModels["Volo.Abp.AspNetCore.Mvc.ApplicationConfigurations.ObjectExtending.ExtensionPropertyPolicyDto"]
+    attributes?: Array<ApiModels["Volo.Abp.AspNetCore.Mvc.ApplicationConfigurations.ObjectExtending.ExtensionPropertyAttributeDto"]> | null
+    configuration?: Record<string, unknown> | null
+    defaultValue?: unknown | null
+  }
+  "Volo.Abp.AspNetCore.Mvc.ApplicationConfigurations.ObjectExtending.ExtensionPropertyFeaturePolicyDto": {
+    features?: Array<string> | null
+    requiresAll?: boolean
+  }
+  "Volo.Abp.AspNetCore.Mvc.ApplicationConfigurations.ObjectExtending.ExtensionPropertyGlobalFeaturePolicyDto": {
+    features?: Array<string> | null
+    requiresAll?: boolean
+  }
+  "Volo.Abp.AspNetCore.Mvc.ApplicationConfigurations.ObjectExtending.ExtensionPropertyPermissionPolicyDto": {
+    permissionNames?: Array<string> | null
+    requiresAll?: boolean
+  }
+  "Volo.Abp.AspNetCore.Mvc.ApplicationConfigurations.ObjectExtending.ExtensionPropertyPolicyDto": {
+    globalFeatures?: ApiModels["Volo.Abp.AspNetCore.Mvc.ApplicationConfigurations.ObjectExtending.ExtensionPropertyGlobalFeaturePolicyDto"]
+    features?: ApiModels["Volo.Abp.AspNetCore.Mvc.ApplicationConfigurations.ObjectExtending.ExtensionPropertyFeaturePolicyDto"]
+    permissions?: ApiModels["Volo.Abp.AspNetCore.Mvc.ApplicationConfigurations.ObjectExtending.ExtensionPropertyPermissionPolicyDto"]
+  }
+  "Volo.Abp.AspNetCore.Mvc.ApplicationConfigurations.ObjectExtending.ExtensionPropertyUiDto": {
+    onTable?: ApiModels["Volo.Abp.AspNetCore.Mvc.ApplicationConfigurations.ObjectExtending.ExtensionPropertyUiTableDto"]
+    onCreateForm?: ApiModels["Volo.Abp.AspNetCore.Mvc.ApplicationConfigurations.ObjectExtending.ExtensionPropertyUiFormDto"]
+    onEditForm?: ApiModels["Volo.Abp.AspNetCore.Mvc.ApplicationConfigurations.ObjectExtending.ExtensionPropertyUiFormDto"]
+    lookup?: ApiModels["Volo.Abp.AspNetCore.Mvc.ApplicationConfigurations.ObjectExtending.ExtensionPropertyUiLookupDto"]
+  }
+  "Volo.Abp.AspNetCore.Mvc.ApplicationConfigurations.ObjectExtending.ExtensionPropertyUiFormDto": {
+    isVisible?: boolean
+  }
+  "Volo.Abp.AspNetCore.Mvc.ApplicationConfigurations.ObjectExtending.ExtensionPropertyUiLookupDto": {
+    url?: string | null
+    resultListPropertyName?: string | null
+    displayPropertyName?: string | null
+    valuePropertyName?: string | null
+    filterParamName?: string | null
+  }
+  "Volo.Abp.AspNetCore.Mvc.ApplicationConfigurations.ObjectExtending.ExtensionPropertyUiTableDto": {
+    isVisible?: boolean
+  }
+  "Volo.Abp.AspNetCore.Mvc.ApplicationConfigurations.ObjectExtending.LocalizableStringDto": {
+    name?: string | null
+    resource?: string | null
+  }
+  "Volo.Abp.AspNetCore.Mvc.ApplicationConfigurations.ObjectExtending.ModuleExtensionDto": {
+    entities?: Record<string, ApiModels["Volo.Abp.AspNetCore.Mvc.ApplicationConfigurations.ObjectExtending.EntityExtensionDto"]> | null
+    configuration?: Record<string, unknown> | null
+  }
+  "Volo.Abp.AspNetCore.Mvc.ApplicationConfigurations.ObjectExtending.ObjectExtensionsDto": {
+    modules?: Record<string, ApiModels["Volo.Abp.AspNetCore.Mvc.ApplicationConfigurations.ObjectExtending.ModuleExtensionDto"]> | null
+    enums?: Record<string, ApiModels["Volo.Abp.AspNetCore.Mvc.ApplicationConfigurations.ObjectExtending.ExtensionEnumDto"]> | null
+  }
+  "Volo.Abp.AspNetCore.Mvc.ApplicationConfigurations.TimeZone": {
+    iana?: ApiModels["Volo.Abp.AspNetCore.Mvc.ApplicationConfigurations.IanaTimeZone"]
+    windows?: ApiModels["Volo.Abp.AspNetCore.Mvc.ApplicationConfigurations.WindowsTimeZone"]
+  }
+  "Volo.Abp.AspNetCore.Mvc.ApplicationConfigurations.TimingDto": {
+    timeZone?: ApiModels["Volo.Abp.AspNetCore.Mvc.ApplicationConfigurations.TimeZone"]
+  }
+  "Volo.Abp.AspNetCore.Mvc.ApplicationConfigurations.WindowsTimeZone": {
+    timeZoneId?: string | null
+  }
+  "Volo.Abp.AspNetCore.Mvc.MultiTenancy.CurrentTenantDto": {
+    id?: string | null
+    name?: string | null
+    isAvailable?: boolean
+  }
+  "Volo.Abp.AspNetCore.Mvc.MultiTenancy.FindTenantResultDto": {
+    success?: boolean
+    tenantId?: string | null
+    name?: string | null
+    normalizedName?: string | null
+    isActive?: boolean
+  }
+  "Volo.Abp.AspNetCore.Mvc.MultiTenancy.MultiTenancyInfoDto": {
+    isEnabled?: boolean
+  }
+  "Volo.Abp.FeatureManagement.FeatureDto": {
+    name?: string | null
+    displayName?: string | null
+    value?: string | null
+    provider?: ApiModels["Volo.Abp.FeatureManagement.FeatureProviderDto"]
+    description?: string | null
+    valueType?: ApiModels["Volo.Abp.Validation.StringValues.IStringValueType"]
+    depth?: number
+    parentName?: string | null
+  }
+  "Volo.Abp.FeatureManagement.FeatureGroupDto": {
+    name?: string | null
+    displayName?: string | null
+    features?: Array<ApiModels["Volo.Abp.FeatureManagement.FeatureDto"]> | null
+  }
+  "Volo.Abp.FeatureManagement.FeatureProviderDto": {
+    name?: string | null
+    key?: string | null
+  }
+  "Volo.Abp.FeatureManagement.GetFeatureListResultDto": {
+    groups?: Array<ApiModels["Volo.Abp.FeatureManagement.FeatureGroupDto"]> | null
   }
   "Volo.Abp.FeatureManagement.UpdateFeatureDto": {
     name?: string | null
@@ -372,11 +856,106 @@ export interface ApiModels {
   "Volo.Abp.FeatureManagement.UpdateFeaturesDto": {
     features?: Array<ApiModels["Volo.Abp.FeatureManagement.UpdateFeatureDto"]> | null
   }
+  "Volo.Abp.Http.Modeling.ActionApiDescriptionModel": {
+    uniqueName?: string | null
+    name?: string | null
+    httpMethod?: string | null
+    url?: string | null
+    supportedVersions?: Array<string> | null
+    parametersOnMethod?: Array<ApiModels["Volo.Abp.Http.Modeling.MethodParameterApiDescriptionModel"]> | null
+    parameters?: Array<ApiModels["Volo.Abp.Http.Modeling.ParameterApiDescriptionModel"]> | null
+    returnValue?: ApiModels["Volo.Abp.Http.Modeling.ReturnValueApiDescriptionModel"]
+    allowAnonymous?: boolean | null
+    implementFrom?: string | null
+  }
+  "Volo.Abp.Http.Modeling.ApplicationApiDescriptionModel": {
+    modules?: Record<string, ApiModels["Volo.Abp.Http.Modeling.ModuleApiDescriptionModel"]> | null
+    types?: Record<string, ApiModels["Volo.Abp.Http.Modeling.TypeApiDescriptionModel"]> | null
+  }
+  "Volo.Abp.Http.Modeling.ControllerApiDescriptionModel": {
+    controllerName?: string | null
+    controllerGroupName?: string | null
+    isRemoteService?: boolean
+    isIntegrationService?: boolean
+    apiVersion?: string | null
+    type?: string | null
+    interfaces?: Array<ApiModels["Volo.Abp.Http.Modeling.ControllerInterfaceApiDescriptionModel"]> | null
+    actions?: Record<string, ApiModels["Volo.Abp.Http.Modeling.ActionApiDescriptionModel"]> | null
+  }
+  "Volo.Abp.Http.Modeling.ControllerInterfaceApiDescriptionModel": {
+    type?: string | null
+    name?: string | null
+    methods?: Array<ApiModels["Volo.Abp.Http.Modeling.InterfaceMethodApiDescriptionModel"]> | null
+  }
+  "Volo.Abp.Http.Modeling.InterfaceMethodApiDescriptionModel": {
+    name?: string | null
+    parametersOnMethod?: Array<ApiModels["Volo.Abp.Http.Modeling.MethodParameterApiDescriptionModel"]> | null
+    returnValue?: ApiModels["Volo.Abp.Http.Modeling.ReturnValueApiDescriptionModel"]
+  }
+  "Volo.Abp.Http.Modeling.MethodParameterApiDescriptionModel": {
+    name?: string | null
+    typeAsString?: string | null
+    type?: string | null
+    typeSimple?: string | null
+    isOptional?: boolean
+    defaultValue?: unknown | null
+  }
+  "Volo.Abp.Http.Modeling.ModuleApiDescriptionModel": {
+    rootPath?: string | null
+    remoteServiceName?: string | null
+    controllers?: Record<string, ApiModels["Volo.Abp.Http.Modeling.ControllerApiDescriptionModel"]> | null
+  }
+  "Volo.Abp.Http.Modeling.ParameterApiDescriptionModel": {
+    nameOnMethod?: string | null
+    name?: string | null
+    jsonName?: string | null
+    type?: string | null
+    typeSimple?: string | null
+    isOptional?: boolean
+    defaultValue?: unknown | null
+    constraintTypes?: Array<string> | null
+    bindingSourceId?: string | null
+    descriptorName?: string | null
+  }
+  "Volo.Abp.Http.Modeling.PropertyApiDescriptionModel": {
+    name?: string | null
+    jsonName?: string | null
+    type?: string | null
+    typeSimple?: string | null
+    isRequired?: boolean
+    minLength?: number | null
+    maxLength?: number | null
+    minimum?: string | null
+    maximum?: string | null
+    regex?: string | null
+  }
+  "Volo.Abp.Http.Modeling.ReturnValueApiDescriptionModel": {
+    type?: string | null
+    typeSimple?: string | null
+  }
+  "Volo.Abp.Http.Modeling.TypeApiDescriptionModel": {
+    baseType?: string | null
+    isEnum?: boolean
+    enumNames?: Array<string> | null
+    enumValues?: Array<unknown> | null
+    genericArguments?: Array<string> | null
+    properties?: Array<ApiModels["Volo.Abp.Http.Modeling.PropertyApiDescriptionModel"]> | null
+  }
   "Volo.Abp.Identity.IdentityRoleCreateDto": {
     extraProperties?: Record<string, unknown> | null
     name: string
     isDefault?: boolean
     isPublic?: boolean
+  }
+  "Volo.Abp.Identity.IdentityRoleDto": {
+    extraProperties?: Record<string, unknown> | null
+    id?: string
+    name?: string | null
+    isDefault?: boolean
+    isStatic?: boolean
+    isPublic?: boolean
+    concurrencyStamp?: string | null
+    creationTime?: string
   }
   "Volo.Abp.Identity.IdentityRoleUpdateDto": {
     extraProperties?: Record<string, unknown> | null
@@ -397,6 +976,32 @@ export interface ApiModels {
     roleNames?: Array<string> | null
     password: string
   }
+  "Volo.Abp.Identity.IdentityUserDto": {
+    extraProperties?: Record<string, unknown> | null
+    id?: string
+    creationTime?: string
+    creatorId?: string | null
+    lastModificationTime?: string | null
+    lastModifierId?: string | null
+    isDeleted?: boolean
+    deleterId?: string | null
+    deletionTime?: string | null
+    tenantId?: string | null
+    userName?: string | null
+    name?: string | null
+    surname?: string | null
+    email?: string | null
+    emailConfirmed?: boolean
+    phoneNumber?: string | null
+    phoneNumberConfirmed?: boolean
+    isActive?: boolean
+    lockoutEnabled?: boolean
+    accessFailedCount?: number
+    lockoutEnd?: string | null
+    concurrencyStamp?: string | null
+    entityVersion?: number
+    lastPasswordChangeTime?: string | null
+  }
   "Volo.Abp.Identity.IdentityUserUpdateDto": {
     extraProperties?: Record<string, unknown> | null
     userName: string
@@ -413,12 +1018,56 @@ export interface ApiModels {
   "Volo.Abp.Identity.IdentityUserUpdateRolesDto": {
     roleNames: Array<string>
   }
+  "Volo.Abp.Localization.LanguageInfo": {
+    cultureName?: string | null
+    uiCultureName?: string | null
+    displayName?: string | null
+    twoLetterISOLanguageName?: string | null
+  }
+  "Volo.Abp.NameValue": {
+    name?: string | null
+    value?: string | null
+  }
+  "Volo.Abp.PermissionManagement.GetPermissionListResultDto": {
+    entityDisplayName?: string | null
+    groups?: Array<ApiModels["Volo.Abp.PermissionManagement.PermissionGroupDto"]> | null
+  }
+  "Volo.Abp.PermissionManagement.PermissionGrantInfoDto": {
+    name?: string | null
+    displayName?: string | null
+    parentName?: string | null
+    isGranted?: boolean
+    allowedProviders?: Array<string> | null
+    grantedProviders?: Array<ApiModels["Volo.Abp.PermissionManagement.ProviderInfoDto"]> | null
+  }
+  "Volo.Abp.PermissionManagement.PermissionGroupDto": {
+    name?: string | null
+    displayName?: string | null
+    displayNameKey?: string | null
+    displayNameResource?: string | null
+    permissions?: Array<ApiModels["Volo.Abp.PermissionManagement.PermissionGrantInfoDto"]> | null
+  }
+  "Volo.Abp.PermissionManagement.ProviderInfoDto": {
+    providerName?: string | null
+    providerKey?: string | null
+  }
   "Volo.Abp.PermissionManagement.UpdatePermissionDto": {
     name?: string | null
     isGranted?: boolean
   }
   "Volo.Abp.PermissionManagement.UpdatePermissionsDto": {
     permissions?: Array<ApiModels["Volo.Abp.PermissionManagement.UpdatePermissionDto"]> | null
+  }
+  "Volo.Abp.SettingManagement.EmailSettingsDto": {
+    smtpHost?: string | null
+    smtpPort?: number
+    smtpUserName?: string | null
+    smtpPassword?: string | null
+    smtpDomain?: string | null
+    smtpEnableSsl?: boolean
+    smtpUseDefaultCredentials?: boolean
+    defaultFromAddress?: string | null
+    defaultFromDisplayName?: string | null
   }
   "Volo.Abp.SettingManagement.SendTestEmailInput": {
     senderEmailAddress: string
@@ -443,10 +1092,38 @@ export interface ApiModels {
     adminEmailAddress: string
     adminPassword: string
   }
+  "Volo.Abp.TenantManagement.TenantDto": {
+    extraProperties?: Record<string, unknown> | null
+    id?: string
+    name?: string | null
+    concurrencyStamp?: string | null
+  }
   "Volo.Abp.TenantManagement.TenantUpdateDto": {
     extraProperties?: Record<string, unknown> | null
     name: string
     concurrencyStamp?: string | null
+  }
+  "Volo.Abp.Users.UserData": {
+    id?: string
+    tenantId?: string | null
+    userName?: string | null
+    name?: string | null
+    surname?: string | null
+    isActive?: boolean
+    email?: string | null
+    emailConfirmed?: boolean
+    phoneNumber?: string | null
+    phoneNumberConfirmed?: boolean
+    extraProperties?: Record<string, unknown> | null
+  }
+  "Volo.Abp.Validation.StringValues.IStringValueType": {
+    name?: string | null
+    properties?: Record<string, unknown | null> | null
+    validator?: ApiModels["Volo.Abp.Validation.StringValues.IValueValidator"]
+  }
+  "Volo.Abp.Validation.StringValues.IValueValidator": {
+    name?: string | null
+    properties?: Record<string, unknown | null> | null
   }
 }
 
@@ -1501,5 +2178,185 @@ export interface ApiRequests {
 }
 }
 
+/** Successful response body for each endpoint. */
+export interface ApiResponses {
+  getAbpApiDefinition: ApiModels["Volo.Abp.Http.Modeling.ApplicationApiDescriptionModel"]
+  getAbpApplicationConfiguration: ApiModels["Volo.Abp.AspNetCore.Mvc.ApplicationConfigurations.ApplicationConfigurationDto"]
+  getAbpApplicationLocalization: ApiModels["Volo.Abp.AspNetCore.Mvc.ApplicationConfigurations.ApplicationLocalizationDto"]
+  getAbpMultiTenancyTenantsByNameName: ApiModels["Volo.Abp.AspNetCore.Mvc.MultiTenancy.FindTenantResultDto"]
+  getAbpMultiTenancyTenantsByIdId: ApiModels["Volo.Abp.AspNetCore.Mvc.MultiTenancy.FindTenantResultDto"]
+  postAccountRegister: ApiModels["Volo.Abp.Identity.IdentityUserDto"]
+  postAccountSendPasswordResetCode: void
+  postAccountVerifyPasswordResetToken: boolean
+  postAccountResetPassword: void
+  getAppActionsAssets: ApiModels["Volo.Abp.Application.Dtos.PagedResultDto`1[[Dotin.CodeGenerator.AppServices.Dtos.ActionsAssetsDto, Dotin.CodeGenerator.Contracts, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]"]
+  postAppActionsAssets: ApiModels["Dotin.CodeGenerator.AppServices.Dtos.ActionsAssetsDto"]
+  postAppActionsAssetsQueryRagId: Array<ApiModels["Dotin.CodeGenerator.Models.Services.RagDataDto"]>
+  postAppActionsAssetsQueryRagWithLLMId: string
+  postAppActionsAssetsQueryTagsId: Array<string>
+  putAppActionsAssetsIdByDto: ApiModels["Dotin.CodeGenerator.AppServices.Dtos.ActionsAssetsDto"]
+  getAppActionsAssetsId: ApiModels["Dotin.CodeGenerator.AppServices.Dtos.ActionsAssetsDto"]
+  putAppActionsAssetsId: ApiModels["Dotin.CodeGenerator.AppServices.Dtos.ActionsAssetsDto"]
+  deleteAppActionsAssetsId: void
+  getAppAgentMember: ApiModels["Volo.Abp.Application.Dtos.PagedResultDto`1[[Dotin.CodeGenerator.AppServices.Dtos.AgentMemberDto, Dotin.CodeGenerator.Contracts, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]"]
+  postAppAgentMember: ApiModels["Dotin.CodeGenerator.AppServices.Dtos.AgentMemberDto"]
+  getAppAgentMemberSystemMessage: string
+  getAppAgentMemberId: ApiModels["Dotin.CodeGenerator.AppServices.Dtos.AgentMemberDto"]
+  putAppAgentMemberId: ApiModels["Dotin.CodeGenerator.AppServices.Dtos.AgentMemberDto"]
+  deleteAppAgentMemberId: void
+  postAppAgentMemoryGetList: ApiModels["Volo.Abp.Application.Dtos.PagedResultDto`1[[Dotin.CodeGenerator.AppServices.Dtos.AgentMemoryDto, Dotin.CodeGenerator.Contracts, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]"]
+  getAppAgentMemory: ApiModels["Dotin.CodeGenerator.AppServices.Dtos.AgentMemoryDto"]
+  postAppAgentMemory: ApiModels["Dotin.CodeGenerator.AppServices.Dtos.AgentMemoryDto"]
+  deleteAppAgentMemory: void
+  postAppAgentMemoryMany: void
+  putAppAgentMemoryId: ApiModels["Dotin.CodeGenerator.AppServices.Dtos.AgentMemoryDto"]
+  getAppAgentTeam: ApiModels["Volo.Abp.Application.Dtos.PagedResultDto`1[[Dotin.CodeGenerator.AppServices.Dtos.AgentTeamDto, Dotin.CodeGenerator.Contracts, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]"]
+  postAppAgentTeam: ApiModels["Dotin.CodeGenerator.AppServices.Dtos.AgentTeamDto"]
+  getAppAgentTeamNoOraganization: ApiModels["Volo.Abp.Application.Dtos.PagedResultDto`1[[Dotin.CodeGenerator.AppServices.Dtos.AgentTeamDto, Dotin.CodeGenerator.Contracts, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]"]
+  getAppAgentTeamId: ApiModels["Dotin.CodeGenerator.AppServices.Dtos.AgentTeamDto"]
+  putAppAgentTeamId: ApiModels["Dotin.CodeGenerator.AppServices.Dtos.AgentTeamDto"]
+  deleteAppAgentTeamId: void
+  getAppAgentTeamSkill: ApiModels["Volo.Abp.Application.Dtos.PagedResultDto`1[[Dotin.CodeGenerator.AppServices.Dtos.TeamSkillsDto, Dotin.CodeGenerator.Contracts, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]"]
+  postAppAgentTeamSkill: ApiModels["Dotin.CodeGenerator.AppServices.Dtos.TeamSkillsDto"]
+  getAppAgentTeamSkillId: ApiModels["Dotin.CodeGenerator.AppServices.Dtos.TeamSkillsDto"]
+  putAppAgentTeamSkillId: ApiModels["Dotin.CodeGenerator.AppServices.Dtos.TeamSkillsDto"]
+  deleteAppAgentTeamSkillId: void
+  postAppAiAudioAudio: string
+  postAppAiConnectorTalk: string
+  postAppAiConnectorTalkWithToolCall: Array<string>
+  postAppAiConnectorTalkWithImage: string
+  postAppAiConnectorMonaco: ApiModels["Dotin.CodeGenerator.Services.AiServies.Process.MonacoResponse"]
+  postAppAiConnectorPlanGit: ApiModels["Dotin.CodeGenerator.AppServices.Dtos.GitPlanDto"]
+  postAppAiConnectorExecuteGitPlan: string
+  postAppAiConnectorCancelGitPlan: void
+  getAppAiConnectorAvailableModels: Array<string>
+  getAppAiConnectorMonacoChatPrompts: Array<string>
+  postAppCodeComposerSemanticPlugin: string
+  postAppCodeComposerReviewPrompt: string
+  postAppCodeComposerReviewPromptForCodeWriter: string
+  postAppCodeComposerGenerateTasks: ApiModels["Dotin.CodeGenerator.Models.Services.TeamJobTasks"]
+  postAppCodeComposerConvertTheCodeToJson: string
+  postAppCodeComposerIsPluginCompilable: string
+  postAppCodeComposerQuickActionCodeComposer: string
+  postAppCodeComposerComposeDotnetCodeByDevelopersTeam: ApiModels["Dotin.CodeGenerator.Models.Response.CodeRunnerResult"]
+  postAppCodeComposerDebate: ApiModels["Dotin.CodeGenerator.Models.Response.DebateResult"]
+  postAppCodeConvertorConvert: Array<ApiModels["Dotin.CodeGenerator.Models.Services.FolderInfo"]>
+  postAppCodeConvertorConvertFromUploadedFiles: Array<ApiModels["Dotin.CodeGenerator.Models.Services.FolderInfo"]>
+  postAppCodeStudioGenerate: ApiModels["Dotin.CodeGenerator.AppServices.Dtos.CodeStudioWorkspaceDto"]
+  getAppDepartmentWorkItem: ApiModels["Volo.Abp.Application.Dtos.PagedResultDto`1[[Dotin.CodeGenerator.AppServices.Dtos.DepartmentWorkItemDto, Dotin.CodeGenerator.Contracts, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]"]
+  postAppDepartmentWorkItem: ApiModels["Dotin.CodeGenerator.AppServices.Dtos.DepartmentWorkItemDto"]
+  getAppDepartmentWorkItemId: ApiModels["Dotin.CodeGenerator.AppServices.Dtos.DepartmentWorkItemDto"]
+  postAppDepartmentWorkItemIdSendToPromptWriter: ApiModels["Dotin.CodeGenerator.AppServices.Dtos.DepartmentWorkItemDto"]
+  getAppDevelopmentJobDocument: ApiModels["Volo.Abp.Application.Dtos.PagedResultDto`1[[Dotin.CodeGenerator.AppServices.Dtos.DevelopmentJobDocumentCreateReadUpdateDto, Dotin.CodeGenerator.Contracts, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]"]
+  postAppDevelopmentJobDocument: ApiModels["Dotin.CodeGenerator.AppServices.Dtos.DevelopmentJobDocumentCreateReadUpdateDto"]
+  getAppDevelopmentJobDocumentId: ApiModels["Dotin.CodeGenerator.AppServices.Dtos.DevelopmentJobDocumentCreateReadUpdateDto"]
+  putAppDevelopmentJobDocumentId: ApiModels["Dotin.CodeGenerator.AppServices.Dtos.DevelopmentJobDocumentCreateReadUpdateDto"]
+  deleteAppDevelopmentJobDocumentId: void
+  putAppDevelopmentJobDocumentIdJiraUrl: ApiModels["Dotin.CodeGenerator.AppServices.Dtos.DevelopmentJobDocumentCreateReadUpdateDto"]
+  postAccountDynamicClaimsRefresh: void
+  getSettingManagementEmailing: ApiModels["Volo.Abp.SettingManagement.EmailSettingsDto"]
+  postSettingManagementEmailing: void
+  postSettingManagementEmailingSendTestEmail: void
+  getFeatureManagementFeatures: ApiModels["Volo.Abp.FeatureManagement.GetFeatureListResultDto"]
+  putFeatureManagementFeatures: void
+  deleteFeatureManagementFeatures: void
+  getFileManagementDownloadFolderAsZip: void
+  postAppGitPushFolderToBranch: void
+  postAppJiraAssistantRecommendComment: ApiModels["Dotin.CodeGenerator.AppServices.Dtos.JiraRecommendationDto"]
+  postAppJiraAssistantComment: void
+  getAppJobManagementJobs: ApiModels["Volo.Abp.Application.Dtos.PagedResultDto`1[[Dotin.CodeGenerator.AppServices.RunningJobDto, Dotin.CodeGenerator.Contracts, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]"]
+  getAppJobManagementJobJourneys: ApiModels["Volo.Abp.Application.Dtos.PagedResultDto`1[[Dotin.CodeGenerator.AppServices.JobJourneyDto, Dotin.CodeGenerator.Contracts, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]"]
+  getAppJobManagementJobJourneyJobInfoId: ApiModels["Dotin.CodeGenerator.AppServices.JobJourneyDto"]
+  postAppJobManagementStopJobJobId: boolean
+  postAppJobManagementRenameJobJobId: void
+  getAppJobManagementJobInfoJobId: string
+  postAppJobManagementChangeDueDateJobId: void
+  getAppJobTaskIdTasks: Record<string, string>
+  getAppJobTask: ApiModels["Volo.Abp.Application.Dtos.PagedResultDto`1[[Dotin.CodeGenerator.AppServices.Dtos.JobTasksDto, Dotin.CodeGenerator.Contracts, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]"]
+  postAppJobTask: ApiModels["Dotin.CodeGenerator.AppServices.Dtos.JobTasksDto"]
+  getAppJobTaskId: ApiModels["Dotin.CodeGenerator.AppServices.Dtos.JobTasksDto"]
+  putAppJobTaskId: ApiModels["Dotin.CodeGenerator.AppServices.Dtos.JobTasksDto"]
+  deleteAppJobTaskId: void
+  postAccountLogin: ApiModels["Volo.Abp.Account.Web.Areas.Account.Controllers.Models.AbpLoginResult"]
+  getAccountLogout: void
+  postAccountCheckPassword: ApiModels["Volo.Abp.Account.Web.Areas.Account.Controllers.Models.AbpLoginResult"]
+  getAppOrganizationUnitOrganizationUnits: Array<ApiModels["Dotin.CodeGenerator.AppServices.Dtos.OrganizationUnitDto"]>
+  postAppOrganizationUnitOrganizationUnit: ApiModels["Dotin.CodeGenerator.AppServices.Dtos.OrganizationUnitDto"]
+  postAppOrganizationUnitIdRenameOrganizationUnit: ApiModels["Dotin.CodeGenerator.AppServices.Dtos.OrganizationUnitDto"]
+  postAppOrganizationUnitIdMoveOrganizationUnit: ApiModels["Dotin.CodeGenerator.AppServices.Dtos.OrganizationUnitDto"]
+  deleteAppOrganizationUnitIdOrganizationUnit: void
+  getAppOrganizationUnitMembers: ApiModels["Volo.Abp.Application.Dtos.PagedResultDto`1[[Dotin.CodeGenerator.AppServices.Dtos.OrganizationMemberDto, Dotin.CodeGenerator.Contracts, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]"]
+  postAppOrganizationUnitSetUserOrganizationUnitsUserId: void
+  postAppPdfAssitantAppserviceUploadPdf: string
+  getAppPdfAssitantAppservicePdf: Blob
+  postAppPdfAssitantAppserviceToText: Array<string>
+  postAppPdfAssitantAppserviceToImage: Array<string>
+  getPermissionManagementPermissions: ApiModels["Volo.Abp.PermissionManagement.GetPermissionListResultDto"]
+  putPermissionManagementPermissions: void
+  postAppProcessStartProcess: string
+  postAppProcessStartDevelopmentDocumentDocumentId: ApiModels["Dotin.CodeGenerator.AppServices.Dtos.ProcessStartResultDto"]
+  postAppProcessStartDepartmentWorkItemWorkItemId: ApiModels["Dotin.CodeGenerator.AppServices.Dtos.ProcessStartResultDto"]
+  postAppProcessStartPostJobsProcessJobinfoId: string
+  postAppProcessRedoWorkflowProcessJobinfoId: string
+  postAppProcessStartSubJobProcess: string
+  getAppProcessTasksJobinfoId: Record<string, string>
+  postAppProcessSaveFilesJobinfoId: boolean
+  postAppProcessSetTeamJobInfo: void
+  postAppProcessWorkflowToMermaid: string
+  getAppProcessIdLogs: ApiModels["Dotin.CodeGenerator.AppServices.Dtos.LogsListDto"]
+  getAppProcessFilesJobInfoId: Array<ApiModels["Dotin.CodeGenerator.Models.Services.FolderInfo"]>
+  getAppProcessSavedPathJobId: string
+  getAppProcessProcessRequestJobinfoId: ApiModels["Dotin.CodeGenerator.Services.AiServies.Process.ProcessRequest"]
+  getAccountMyProfile: ApiModels["Volo.Abp.Account.ProfileDto"]
+  putAccountMyProfile: ApiModels["Volo.Abp.Account.ProfileDto"]
+  postAccountMyProfileChangePassword: void
+  getIdentityRolesAll: ApiModels["Volo.Abp.Application.Dtos.ListResultDto`1[[Volo.Abp.Identity.IdentityRoleDto, Volo.Abp.Identity.Application.Contracts, Version=9.2.2.0, Culture=neutral, PublicKeyToken=null]]"]
+  getIdentityRoles: ApiModels["Volo.Abp.Application.Dtos.PagedResultDto`1[[Volo.Abp.Identity.IdentityRoleDto, Volo.Abp.Identity.Application.Contracts, Version=9.2.2.0, Culture=neutral, PublicKeyToken=null]]"]
+  postIdentityRoles: ApiModels["Volo.Abp.Identity.IdentityRoleDto"]
+  getIdentityRolesId: ApiModels["Volo.Abp.Identity.IdentityRoleDto"]
+  putIdentityRolesId: ApiModels["Volo.Abp.Identity.IdentityRoleDto"]
+  deleteIdentityRolesId: void
+  getAppStructureId: ApiModels["Dotin.CodeGenerator.AppServices.Dtos.StructureDto"]
+  putAppStructureId: ApiModels["Dotin.CodeGenerator.AppServices.Dtos.StructureDto"]
+  deleteAppStructureId: void
+  getAppStructure: Array<ApiModels["Dotin.CodeGenerator.AppServices.Dtos.StructureDto"]>
+  postAppStructure: ApiModels["Dotin.CodeGenerator.AppServices.Dtos.StructureDto"]
+  getAppStructureFileStructureId: ApiModels["Dotin.CodeGenerator.AppServices.Dtos.StructureFileDto"]
+  getMultiTenancyTenantsId: ApiModels["Volo.Abp.TenantManagement.TenantDto"]
+  putMultiTenancyTenantsId: ApiModels["Volo.Abp.TenantManagement.TenantDto"]
+  deleteMultiTenancyTenantsId: void
+  getMultiTenancyTenants: ApiModels["Volo.Abp.Application.Dtos.PagedResultDto`1[[Volo.Abp.TenantManagement.TenantDto, Volo.Abp.TenantManagement.Application.Contracts, Version=9.2.2.0, Culture=neutral, PublicKeyToken=null]]"]
+  postMultiTenancyTenants: ApiModels["Volo.Abp.TenantManagement.TenantDto"]
+  getMultiTenancyTenantsIdDefaultConnectionString: string
+  putMultiTenancyTenantsIdDefaultConnectionString: void
+  deleteMultiTenancyTenantsIdDefaultConnectionString: void
+  postAppTextHelperToJsonText: string
+  postAppTextHelperEncodeToBase64: string
+  postAppTextHelperDecodeFromBase64: string
+  getSettingManagementTimezone: string
+  postSettingManagementTimezone: void
+  getSettingManagementTimezoneTimezones: Array<ApiModels["Volo.Abp.NameValue"]>
+  getIdentityUsersId: ApiModels["Volo.Abp.Identity.IdentityUserDto"]
+  putIdentityUsersId: ApiModels["Volo.Abp.Identity.IdentityUserDto"]
+  deleteIdentityUsersId: void
+  getIdentityUsers: ApiModels["Volo.Abp.Application.Dtos.PagedResultDto`1[[Volo.Abp.Identity.IdentityUserDto, Volo.Abp.Identity.Application.Contracts, Version=9.2.2.0, Culture=neutral, PublicKeyToken=null]]"]
+  postIdentityUsers: ApiModels["Volo.Abp.Identity.IdentityUserDto"]
+  getIdentityUsersIdRoles: ApiModels["Volo.Abp.Application.Dtos.ListResultDto`1[[Volo.Abp.Identity.IdentityRoleDto, Volo.Abp.Identity.Application.Contracts, Version=9.2.2.0, Culture=neutral, PublicKeyToken=null]]"]
+  putIdentityUsersIdRoles: void
+  getIdentityUsersAssignableRoles: ApiModels["Volo.Abp.Application.Dtos.ListResultDto`1[[Volo.Abp.Identity.IdentityRoleDto, Volo.Abp.Identity.Application.Contracts, Version=9.2.2.0, Culture=neutral, PublicKeyToken=null]]"]
+  getIdentityUsersByUsernameUserName: ApiModels["Volo.Abp.Identity.IdentityUserDto"]
+  getIdentityUsersByEmailEmail: ApiModels["Volo.Abp.Identity.IdentityUserDto"]
+  getAppUser: Array<ApiModels["Dotin.CodeGenerator.AppServices.Dtos.UserIntegrationDto"]>
+  postAppUser: ApiModels["Dotin.CodeGenerator.AppServices.Dtos.UserIntegrationDto"]
+  getAppUserId: ApiModels["Dotin.CodeGenerator.AppServices.Dtos.UserIntegrationDto"]
+  putAppUserId: ApiModels["Dotin.CodeGenerator.AppServices.Dtos.UserIntegrationDto"]
+  deleteAppUserId: void
+  getIdentityUsersLookupId: ApiModels["Volo.Abp.Users.UserData"]
+  getIdentityUsersLookupByUsernameUserName: ApiModels["Volo.Abp.Users.UserData"]
+  getIdentityUsersLookupSearch: ApiModels["Volo.Abp.Application.Dtos.ListResultDto`1[[Volo.Abp.Users.UserData, Volo.Abp.Users.Abstractions, Version=9.2.2.0, Culture=neutral, PublicKeyToken=null]]"]
+  getIdentityUsersLookupCount: number
+}
+
 export type ApiEndpointName = keyof typeof endpoints
 export type ApiRequest<TEndpoint extends ApiEndpointName> = ApiRequests[TEndpoint]
+export type ApiResponse<TEndpoint extends ApiEndpointName> = ApiResponses[TEndpoint]

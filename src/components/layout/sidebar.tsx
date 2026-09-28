@@ -14,7 +14,7 @@ export function Sidebar({ open, onClose }: { open: boolean; onClose: () => void 
       <aside className={cn('fixed inset-y-0 left-0 z-40 flex w-[260px] flex-col border-r border-white/10 bg-[#19172c] text-white transition-transform lg:translate-x-0', open ? 'translate-x-0' : '-translate-x-full')}>
         <div className="flex h-20 items-center gap-3 px-6">
           <div className="grid h-10 w-10 place-items-center rounded-xl bg-gradient-to-br from-[#8c7bff] to-[#6555e8] shadow-lg shadow-violet-950/40"><Layers3 className="h-5 w-5" /></div>
-          <div><div className="text-[17px] font-bold tracking-tight">Orbit</div><div className="text-[10px] font-semibold uppercase tracking-[.2em] text-violet-300">Workspace</div></div>
+          <div><div className="text-[17px] font-bold tracking-tight">CodeGenerator</div><div className="text-[10px] font-semibold uppercase tracking-[.2em] text-violet-300">Workspace</div></div>
           <button onClick={onClose} className="ml-auto rounded-lg p-2 text-slate-400 hover:bg-white/10 lg:hidden"><ChevronLeft className="h-5 w-5" /></button>
         </div>
         <nav className="flex-1 space-y-1 px-3 py-5">

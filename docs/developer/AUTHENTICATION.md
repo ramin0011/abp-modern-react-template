@@ -1,6 +1,6 @@
 # Authentication and Authorization Architecture
 
-This document explains the complete authentication structure of the Orbit Admin React application: runtime configuration, OpenID Connect, Authorization Code with PKCE, session restoration, token renewal, ABP permissions, authenticated HTTP requests, logout, backend requirements, security boundaries, and known limitations.
+This document explains the complete authentication structure of the CodeGenerator React application: runtime configuration, OpenID Connect, Authorization Code with PKCE, session restoration, token renewal, ABP permissions, authenticated HTTP requests, logout, backend requirements, security boundaries, and known limitations.
 
 ## Architecture overview
 
@@ -58,11 +58,11 @@ Authentication settings are defined in `dynamic-env.json`:
 ```json
 {
   "oAuthConfig": {
-    "issuer": "https://localhost:44301/",
+    "issuer": "https://localhost:44366/",
     "redirectUri": "http://localhost:3000/auth/callback",
     "postLogoutRedirectUri": "http://localhost:3000",
-    "clientId": "Orbit_Admin_App",
-    "scope": "offline_access openid profile email phone OrbitAdmin"
+    "clientId": "CodeGenerator_App",
+    "scope": "offline_access openid profile email phone roles CodeGenerator"
   }
 }
 ```
@@ -86,7 +86,7 @@ The configured scopes have these meanings:
 | `email` | Requests email claims |
 | `phone` | Requests phone claims |
 | `offline_access` | Requests refresh-token capability |
-| `OrbitAdmin` | Requests access to the application API |
+| `CodeGenerator` | Requests access to the application API |
 
 The API scope must match a scope registered by the backend.
 
@@ -321,7 +321,7 @@ api.get('/app/products')
 is sent conceptually as:
 
 ```http
-GET https://localhost:44300/api/app/products
+GET https://localhost:44366/api/app/products
 Authorization: Bearer <access-token>
 X-Requested-With: XMLHttpRequest
 Accept-Language: en
@@ -348,9 +348,9 @@ The relevant response section is expected to resemble:
 {
   "auth": {
     "grantedPolicies": {
-      "OrbitAdmin.Team": true,
-      "OrbitAdmin.Products.Create": true,
-      "OrbitAdmin.Products.Delete": false
+      "AbpIdentity.Users": true,
+      "CodeGenerator.Products.Create": true,
+      "CodeGenerator.Products.Delete": false
     }
   }
 }
@@ -359,17 +359,17 @@ The relevant response section is expected to resemble:
 Granted policies are stored in Zustand. Permission checks use:
 
 ```ts
-isGranted('OrbitAdmin.Team')
+isGranted('AbpIdentity.Users')
 ```
 
 The function returns `true` only when the server explicitly grants the policy. When application-configuration loading fails, an empty policy collection is stored, so protected features fail closed.
 
 ## Route and menu authorization
 
-The Team route checks authentication in its `beforeLoad` handler, starts OIDC login when necessary, waits for initial application-configuration loading, and then checks `OrbitAdmin.Team`. The sidebar uses the same policy to decide whether to render the Team navigation entry.
+The Team route checks authentication in its `beforeLoad` handler, starts OIDC login when necessary, waits for initial application-configuration loading, and then checks `AbpIdentity.Users`. The sidebar uses the same policy to decide whether to render the Team navigation entry.
 
 ```text
-OrbitAdmin.Team = true
+AbpIdentity.Users = true
         │
         ├── Team menu is visible
         └── /team is accessible
@@ -401,7 +401,7 @@ Authentication exists globally, but most demonstration pages are intentionally p
 | `/` | Public |
 | `/products` | Public |
 | `/settings` | Public |
-| `/team` | Requires `OrbitAdmin.Team` |
+| `/team` | Requires `AbpIdentity.Users` |
 | `/auth/callback` | OIDC callback |
 
 There is no global `RequireAuth` wrapper yet. Unauthenticated requests made with the shared Axios client simply omit the `Authorization` header.
@@ -412,7 +412,7 @@ For this frontend configuration, the OpenIddict client should approximately use:
 
 ```text
 Client ID:
-  Orbit_Admin_App
+  CodeGenerator_App
 
 Client type:
   Public SPA client
@@ -435,7 +435,7 @@ Allowed scopes:
   email
   phone
   offline_access
-  OrbitAdmin
+  CodeGenerator
 ```
 
 The API host must allow CORS requests from `http://localhost:3000`. The issuer, HTTPS certificates, scope name, API audience, redirect addresses, and client registration must agree exactly.

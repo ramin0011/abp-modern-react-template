@@ -2,6 +2,8 @@
   "Menu:Home": "Overview",
   "Menu:Products": "Products",
   "Menu:Team": "Team",
+  "Menu:Users": "Users",
+  "Menu:Roles": "Roles",
   "Menu:Settings": "Settings",
   "Dashboard:Title": "Hello",
   "Dashboard:Subtitle": "Here’s what’s happening with your workspace today.",

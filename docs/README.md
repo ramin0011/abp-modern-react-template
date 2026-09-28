@@ -3,6 +3,7 @@
 ## For adopters
 
 - [Integrate an ABP backend](ABP_BACKEND_INTEGRATION.md)
+- [Configure the CodeGenerator backend](CODEGENERATOR_BACKEND_SETUP.md)
 - [Configure the application](CONFIGURATION.md)
 - [Deploy the application](DEPLOYMENT.md)
 - [Understand the project structure](PROJECT_STRUCTURE.md)
@@ -14,4 +15,3 @@
 - [Contributing](../CONTRIBUTING.md)
 - [Security policy](../SECURITY.md)
 - [Support](../SUPPORT.md)
-

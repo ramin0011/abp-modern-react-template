@@ -21,6 +21,8 @@ const SettingsPage = lazy(() =>
 const TeamPage = lazy(() =>
   import('@/pages/team-page').then((module) => ({ default: module.TeamPage })),
 )
+const UsersPage = lazy(() => import('@/pages/users-page').then((module) => ({ default: module.UsersPage })))
+const RolesPage = lazy(() => import('@/pages/roles-page').then((module) => ({ default: module.RolesPage })))
 const AuthCallbackPage = lazy(() =>
   import('@/pages/auth-callback-page').then((module) => ({ default: module.AuthCallbackPage })),
 )
@@ -51,6 +53,8 @@ const teamRoute = createRoute({
   beforeLoad: ({ location }) => requirePermission('AbpIdentity.Users', location.href),
   component: TeamPage,
 })
+const usersRoute = createRoute({ getParentRoute: () => rootRoute, path: '/identity/users', beforeLoad: ({ location }) => requirePermission('AbpIdentity.Users', location.href), component: UsersPage })
+const rolesRoute = createRoute({ getParentRoute: () => rootRoute, path: '/identity/roles', beforeLoad: ({ location }) => requirePermission('AbpIdentity.Roles', location.href), component: RolesPage })
 const authCallbackRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: '/auth/callback',
@@ -65,6 +69,8 @@ const routeTree = rootRoute.addChildren([
   indexRoute,
   productsRoute,
   teamRoute,
+  usersRoute,
+  rolesRoute,
   settingsRoute,
   authCallbackRoute,
   authenticationLoginCallbackRoute,

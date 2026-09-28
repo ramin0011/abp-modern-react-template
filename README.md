@@ -59,10 +59,12 @@ The interface runs without a backend. Sign-in, server permissions, and authentic
 3. Register the callback `http://localhost:3000/auth/callback` and logout return `http://localhost:3000`.
 4. Grant Authorization Code, PKCE, required scopes, and optionally refresh-token access.
 5. Copy the backend API, Auth Server, client ID, and scopes into `dynamic-env.json`.
-6. Rename example permissions such as `OrbitAdmin.Team` to policies exposed by your backend.
+6. Confirm that example permissions such as `AbpIdentity.Users` are exposed and granted by your backend.
 7. Replace demonstration data with typed API modules under `src/lib/api/`.
 
 The complete walkthrough is in [ABP backend integration](docs/ABP_BACKEND_INTEGRATION.md).
+
+The checked-in local configuration currently targets the unified CodeGenerator backend at `https://localhost:44366`. Its required server-side changes are documented in [CodeGenerator backend setup](docs/CODEGENERATOR_BACKEND_SETUP.md).
 
 ## Configuration example
 
@@ -106,6 +108,7 @@ Edit the root `dynamic-env.json`. Vite copies it to `public/dynamic-env.json` be
 ## Documentation
 
 - [ABP backend integration](docs/ABP_BACKEND_INTEGRATION.md)
+- [CodeGenerator backend setup](docs/CODEGENERATOR_BACKEND_SETUP.md)
 - [Runtime configuration](docs/CONFIGURATION.md)
 - [Deployment](docs/DEPLOYMENT.md)
 - [Project structure](docs/PROJECT_STRUCTURE.md)
